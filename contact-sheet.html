@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M LOFT — Image Asset Contact Sheet & Approval</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-teal: #0F3B3A;
+      --teal-light: #185250;
+      --accent-gold: #C9A24B;
+      --gold-light: #DFBF73;
+      --secondary-maroon: #5A0F1F;
+      --bg-ivory: #FAF6EE;
+      --bg-card: #FFFFFF;
+      --text-charcoal: #222222;
+      --text-muted: #666666;
+      --border-soft: #E8E2D5;
+      --shadow-sm: 0 4px 12px rgba(15, 59, 58, 0.06);
+      --shadow-md: 0 10px 30px rgba(15, 59, 58, 0.12);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-ivory);
+      color: var(--text-charcoal);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    header {
+      background-color: var(--primary-teal);
+      color: #FFFFFF;
+      padding: 40px 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .brand-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    .brand-sub {
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 300;
+      opacity: 0.9;
+    }
+
+    .header-divider {
+      width: 60px;
+      height: 2px;
+      background-color: var(--accent-gold);
+      margin: 16px auto;
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(201, 162, 75, 0.4);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-pill strong {
+      color: var(--gold-light);
+      font-size: 1rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Filters */
+    .filter-section {
+      margin: 36px 0 24px 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .filter-btn {
+      background: #FFFFFF;
+      border: 1px solid var(--border-soft);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-charcoal);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+      transform: translateY(-1px);
+    }
+
+    .filter-btn.active {
+      background: var(--primary-teal);
+      color: #FFFFFF;
+      border-color: var(--primary-teal);
+      box-shadow: 0 4px 15px rgba(15, 59, 58, 0.25);
+    }
+
+    .filter-btn.flagged-btn.active {
+      background: var(--secondary-maroon);
+      border-color: var(--secondary-maroon);
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--primary-teal);
+      margin: 40px 0 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-gold);
+      margin: 8px auto 0;
+    }
+
+    /* Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 26px;
+      margin-top: 20px;
+    }
+
+    /* Card */
+    .image-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-soft);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .image-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(201, 162, 75, 0.6);
+    }
+
+    .card-media {
+      position: relative;
+      background: #f0ede6;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card-media.aspect-reel {
+      aspect-ratio: 9/16;
+    }
+
+    .card-media.aspect-square {
+      aspect-ratio: 1/1;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+
+    .image-card:hover .card-media img {
+      transform: scale(1.05);
+    }
+
+    .media-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(15, 59, 58, 0.88);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(201, 162, 75, 0.4);
+      z-index: 2;
+    }
+
+    .clean-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(40, 167, 69, 0.9);
+      backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .flagged-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(220, 53, 69, 0.95);
+      color: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .target-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-teal);
+      margin-bottom: 4px;
+    }
+
+    .target-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .meta-box {
+      background: #FAF7F2;
+      border: 1px solid #ECE6D8;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.76rem;
+      margin-bottom: 14px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .meta-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .meta-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .meta-val {
+      font-weight: 600;
+      color: var(--text-charcoal);
+      word-break: break-all;
+      text-align: right;
+    }
+
+    .cleaning-tag {
+      font-size: 0.74rem;
+      color: var(--secondary-maroon);
+      background: #FDF1F3;
+      border-left: 3px solid var(--secondary-maroon);
+      padding: 6px 10px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 14px;
+      line-height: 1.35;
+    }
+
+    .download-strip {
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid var(--border-soft);
+      padding-top: 14px;
+    }
+
+    .dl-btn {
+      flex: 1;
+      text-align: center;
+      padding: 7px 0;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .dl-jpg {
+      background: var(--primary-teal);
+      color: #FFFFFF;
+    }
+
+    .dl-jpg:hover {
+      background: var(--teal-light);
+    }
+
+    .dl-webp {
+      background: #FAF6EE;
+      color: var(--primary-teal);
+      border: 1px solid var(--primary-teal);
+    }
+
+    .dl-webp:hover {
+      background: var(--primary-teal);
+      color: #FFFFFF;
+    }
+
+    /* Alert Boxes */
+    .alert-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border-left: 5px solid var(--secondary-maroon);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .alert-card.warning {
+      border-left-color: #E68A00;
+    }
+
+    .alert-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--secondary-maroon);
+      margin-bottom: 8px;
+    }
+
+    .alert-card.warning h3 {
+      color: #B36800;
+    }
+
+    .alert-card p {
+      font-size: 0.9rem;
+      color: #444444;
+      margin-bottom: 12px;
+    }
+
+    .alert-list {
+      list-style-type: none;
+    }
+
+    .alert-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .alert-list li::before {
+      content: '•';
+      position: absolute;
+      left: 8px;
+      color: var(--secondary-maroon);
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 59, 58, 0.92);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 900px;
+      max-height: 90vh;
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+
+    .modal-img-wrap {
+      flex: 1;
+      overflow: auto;
+      background: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .modal-img-wrap img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--primary-teal);
+      color: #FFFFFF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--accent-gold);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #FFFFFF;
+      font-size: 1.8rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-title {
+        font-size: 2.2rem;
+      }
+      .stats-bar {
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-title">M LOFT</div>
+    <div class="brand-sub">by Joel Jacob Mathew • Website Asset Contact Sheet</div>
+    <div class="header-divider"></div>
+    <div class="stats-bar">
+      <div class="stat-pill">Processed Assets: <strong>30 Items</strong></div>
+      <div class="stat-pill">Reel Posters: <strong>7 Posters</strong></div>
+      <div class="stat-pill">Formats: <strong>JPG (95%) & WebP (90%)</strong></div>
+      <div class="stat-pill">Needs Retake: <strong>3 Shots</strong></div>
+      <div class="stat-pill">Needs Originals: <strong>2 Photos</strong></div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Filters -->
+    <div class="filter-section">
+      <button class="filter-btn active" onclick="filterGallery('all')">All Images (30)</button>
+      <button class="filter-btn" onclick="filterGallery('hero')">Hero Slider (5)</button>
+      <button class="filter-btn" onclick="filterGallery('collection')">Collections (8)</button>
+      <button class="filter-btn" onclick="filterGallery('product')">Product Tabs (4)</button>
+      <button class="filter-btn" onclick="filterGallery('mosaic')">Photo Mosaic (4)</button>
+      <button class="filter-btn" onclick="filterGallery('launch')">New Launch Alert (2)</button>
+      <button class="filter-btn" onclick="filterGallery('instagram')">Instagram Feed (3)</button>
+      <button class="filter-btn" onclick="filterGallery('reels')">Reel Posters (7)</button>
+      <button class="filter-btn flagged-btn" onclick="filterGallery('flagged')">Flagged & Retakes</button>
+    </div>
+
+    <!-- Flagged Summary Section -->
+    <div id="flagged-section" style="display: none;">
+      <div class="alert-card">
+        <h3>Photos Needing Re-Screenshot (needs_retake.txt)</h3>
+        <p>The following screenshots have Instagram's dark hover overlay (white heart and comment count numbers) obscuring the image. Please re-capture these posts without hovering your cursor:</p>
+        <ul class="alert-list">
+          <li><strong>assets/raw/Screenshot 2026-10-01 150629.png (Column 0)</strong>: Obscured by white heart (1,069) & speech bubble (7).</li>
+          <li><strong>assets/raw/Screenshot 2026-10-01 152542.png (Column 0)</strong>: Obscured by white heart (63) & speech bubble (0).</li>
+          <li><strong>assets/raw/Screenshot 2026-10-01 152553.png (Column 1)</strong>: Obscured by white heart (64) & speech bubble (0).</li>
+          <li><strong>assets/reference/instagram/insta2.png (Column 1)</strong>: Obscured by white heart (71.2K) & speech bubble (399).</li>
+          <li><strong>assets/reference/instagram/insta3.png (Column 0)</strong>: Obscured by white heart (505) & speech bubble (3).</li>
+          <li><strong>assets/reference/instagram/insta4.png (Column 1)</strong>: Obscured by white heart (4,932) & speech bubble (300).</li>
+        </ul>
+      </div>
+
+      <div class="alert-card warning">
+        <h3>Photographer Originals Recommended (needs_originals.txt)</h3>
+        <p>The following images contain external photographer/vendor watermarks that cannot be cropped without compromising bridal composition. Original master files are requested:</p>
+        <ul class="alert-list">
+          <li><strong>assets/reference/instagram/insta5.png</strong>: Contains "fr" photographer gold circle logo (bottom-left) and "floretta" bouquet credit.</li>
+          <li><strong>assets/raw/Screenshot 2026-10-01 150307.png</strong>: Contains "tjsflare" photographer signature at the very bottom center.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- HERO SLIDESHOW -->
+      <div class="image-card" data-category="hero collection">
+        <div class="card-media" onclick="openModal('assets/images/hero-01.jpg', 'hero-01.jpg — Bridal Pastel Floral')">
+          <span class="media-badge">Hero / Engagement</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/hero-01.webp" alt="hero-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hero-01.jpg</div>
+            <div class="target-desc">Bride in pastel pink floral embroidered lehenga with kundan jewellery</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150222.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">439 × 584</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted M. LOFT lion logo & text from top-left background; trimmed borders</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hero-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hero-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="hero collection">
+        <div class="card-media" onclick="openModal('assets/images/hero-02.jpg', 'hero-02.jpg — Gold Lehenga Portrait')">
+          <span class="media-badge">Hero / Handwork</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/hero-02.webp" alt="hero-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hero-02.jpg</div>
+            <div class="target-desc">Bride in ornate gold/yellow bridal lehenga with temple jewelry & kamarbandh</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150343.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">490 × 581</span></div>
+            </div>
+            <div class="cleaning-tag">Clean original photo; trimmed 1px screenshot viewport artifacts</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hero-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hero-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="hero collection">
+        <div class="card-media" onclick="openModal('assets/images/hero-03.jpg', 'hero-03.jpg — Regal Crimson Saree')">
+          <span class="media-badge">Hero / Hindu Bride</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/hero-03.webp" alt="hero-03" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hero-03.jpg</div>
+            <div class="target-desc">Regal bride in crimson Kanchipuram silk saree with groom in sherwani under floral bower</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150536.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">442 × 581</span></div>
+            </div>
+            <div class="cleaning-tag">Trimmed 1px boundary; pristine photo content</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hero-03.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hero-03.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="hero product">
+        <div class="card-media" onclick="openModal('assets/images/hero-04.jpg', 'hero-04.jpg — Reception Couture')">
+          <span class="media-badge">Hero / Featured</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/hero-04.webp" alt="hero-04" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hero-04.jpg</div>
+            <div class="target-desc">Joyful couple in champagne reception couture and ivory sherwani</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150615.png (Col 1)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">331 × 444</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right reel icon and centered M. LOFT lion logo & text</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hero-04.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hero-04.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="hero collection">
+        <div class="card-media" onclick="openModal('assets/images/hero-05.jpg', 'hero-05.jpg — Christian Bride Veil')">
+          <span class="media-badge">Hero / Christian Bride</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/hero-05.webp" alt="hero-05" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hero-05.jpg</div>
+            <div class="target-desc">Christian bride with cathedral veil and ivory beaded corset holding hands with groom</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150307.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">440 × 588</span></div>
+            </div>
+            <div class="cleaning-tag">Cropped 25px black margin; inpainted thin M LOFT waist text watermark</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hero-05.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hero-05.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLLECTIONS -->
+      <div class="image-card" data-category="collection">
+        <div class="card-media" onclick="openModal('assets/images/hindu-bride-01.jpg', 'hindu-bride-01.jpg — Hindu Bride')">
+          <span class="media-badge">Collection: Hindu Bride</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/hindu-bride-01.webp" alt="hindu-bride-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">hindu-bride-01.jpg</div>
+            <div class="target-desc">Traditional Hindu bride in rich vermilion red & gold bridal silk saree</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150536.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">442 × 581</span></div>
+            </div>
+            <div class="cleaning-tag">Trimmed 1px screenshot border; authentic bridal styling</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/hindu-bride-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/hindu-bride-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection">
+        <div class="card-media" onclick="openModal('assets/images/white-gown-01.jpg', 'white-gown-01.jpg — White Gown')">
+          <span class="media-badge">Collection: White Gown</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/white-gown-01.webp" alt="white-gown-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">white-gown-01.jpg</div>
+            <div class="target-desc">Christian bride and groom in bespoke ivory couture gown & double-breasted suit</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">assets/reference/instagram/insta6.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">332 × 444</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted bottom M LOFT watermark; preserved natural fabric drape</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/white-gown-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/white-gown-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection">
+        <div class="card-media" onclick="openModal('assets/images/pavithrappattu-01.jpg', 'pavithrappattu-01.jpg — Pavithrappattu')">
+          <span class="media-badge">Collection: Pavithrappattu</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/pavithrappattu-01.webp" alt="pavithrappattu-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">pavithrappattu-01.jpg</div>
+            <div class="target-desc">Model in copper/rose gold silk pavithrappattu saree with polki choker</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150629.png (Col 1)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">331 × 443</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right reel play icon; seamless background fill</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/pavithrappattu-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/pavithrappattu-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection">
+        <div class="card-media" onclick="openModal('assets/images/roja-01.jpg', 'roja-01.jpg — Roja Collection')">
+          <span class="media-badge">Collection: Roja</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/roja-01.webp" alt="roja-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">roja-01.jpg</div>
+            <div class="target-desc">Seated model in vibrant Roja crimson silk saree with elaborate gold border</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150629.png (Col 2)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">331 × 443</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right multi-photo carousel icon</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/roja-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/roja-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection">
+        <div class="card-media" onclick="openModal('assets/images/handwork-01.jpg', 'handwork-01.jpg — Handwork Zardozi')">
+          <span class="media-badge">Collection: Handwork</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/handwork-01.webp" alt="handwork-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">handwork-01.jpg</div>
+            <div class="target-desc">Macro texture of fine gold zardozi embroidery and beadwork on raw silk</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 152553.png (Col 0)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">331 × 442</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted horizontal grid tile line at y~145</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/handwork-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/handwork-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection launch">
+        <div class="card-media" onclick="openModal('assets/images/legacy-01.jpg', 'legacy-01.jpg — M. Loft Legacy')">
+          <span class="media-badge">Collection: Legacy</span>
+          <span class="clean-badge">Official Art</span>
+          <img src="assets/images/legacy-01.webp" alt="legacy-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">legacy-01.jpg</div>
+            <div class="target-desc">Official M. Loft Legacy campaign visual: gold serif lettering on royal maroon tapestry</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">assets/reference/instagram/insta4.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">328 × 440</span></div>
+            </div>
+            <div class="cleaning-tag">Trimmed 2px borders; authentic brand campaign asset</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/legacy-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/legacy-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="collection launch">
+        <div class="card-media" onclick="openModal('assets/images/legacy-02.jpg', 'legacy-02.jpg — Legacy Drape')">
+          <span class="media-badge">Collection: Legacy</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/legacy-02.webp" alt="legacy-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">legacy-02.jpg</div>
+            <div class="target-desc">Ornate crimson/roja bridal lehenga drape with scalloped handwork border</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 152553.png (Col 2)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">328 × 442</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted horizontal grid line at y~145</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/legacy-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/legacy-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCT TABS -->
+      <div class="image-card" data-category="product">
+        <div class="card-media" onclick="openModal('assets/images/featured-01.jpg', 'featured-01.jpg — Twirling Lehenga')">
+          <span class="media-badge">Product: Featured</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/featured-01.webp" alt="featured-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">featured-01.jpg</div>
+            <div class="target-desc">Bride twirling in radiant gold/yellow flared lehenga with floral hair wreath</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150328.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">475 × 584</span></div>
+            </div>
+            <div class="cleaning-tag">Trimmed 1px borders; pristine photo</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/featured-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/featured-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="product">
+        <div class="card-media" onclick="openModal('assets/images/featured-02.jpg', 'featured-02.jpg — Deep Red Velvet')">
+          <span class="media-badge">Product: Featured</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/featured-02.webp" alt="featured-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">featured-02.jpg</div>
+            <div class="target-desc">Model in deep crimson velvet bridal lehenga with embroidered waistband & dupatta</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150503.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">436 × 594</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted right navigation arrow, bottom-left user tag, and pagination dots</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/featured-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/featured-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="product">
+        <div class="card-media" onclick="openModal('assets/images/new-arrival-01.jpg', 'new-arrival-01.jpg — Purple Silk')">
+          <span class="media-badge">Product: New Arrival</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/new-arrival-01.webp" alt="new-arrival-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">new-arrival-01.jpg</div>
+            <div class="target-desc">Model in royal purple silk saree with intricate gold stripes and choker necklace</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150555.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">416 × 584</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted bottom carousel pagination dots</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/new-arrival-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/new-arrival-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="product">
+        <div class="card-media" onclick="openModal('assets/images/best-seller-01.jpg', 'best-seller-01.jpg — Emerald Jewelry Portrait')">
+          <span class="media-badge">Product: Best Seller</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/best-seller-01.webp" alt="best-seller-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">best-seller-01.jpg</div>
+            <div class="target-desc">Bridal portrait smiling in emerald/gold jewelry & champagne reception gown</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150615.png (Col 2)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">331 × 444</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right reel play icon</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/best-seller-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/best-seller-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHOTO MOSAIC -->
+      <div class="image-card" data-category="mosaic">
+        <div class="card-media" onclick="openModal('assets/images/mosaic-01.jpg', 'mosaic-01.jpg — Our Brides')">
+          <span class="media-badge">Mosaic: Our Brides</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/mosaic-01.webp" alt="mosaic-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">mosaic-01.jpg</div>
+            <div class="target-desc">Bride, groom & sister smiling in Kerala wedding attire with floral garlands</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150429.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">472 × 584</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right multi-photo carousel icon</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/mosaic-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/mosaic-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="mosaic">
+        <div class="card-media" onclick="openModal('assets/images/mosaic-02.jpg', 'mosaic-02.jpg — Happiness')">
+          <span class="media-badge">Mosaic: Happiness</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/mosaic-02.webp" alt="mosaic-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">mosaic-02.jpg</div>
+            <div class="target-desc">Bridal sisters sharing a joyful forehead touch in Kanchipuram silk sarees</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150359.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">470 × 586</span></div>
+            </div>
+            <div class="cleaning-tag">Trimmed 1px border; pristine clean photo</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/mosaic-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/mosaic-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="mosaic">
+        <div class="card-media" onclick="openModal('assets/images/mosaic-03.jpg', 'mosaic-03.jpg — Handcrafted')">
+          <span class="media-badge">Mosaic: Handcrafted</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/mosaic-03.webp" alt="mosaic-03" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">mosaic-03.jpg</div>
+            <div class="target-desc">Joel Jacob Mathew sketching couture bridal gown with atelier design team</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">assets/reference/instagram/insta6.png (Col 1)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">332 × 444</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted top-right reel play icon</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/mosaic-03.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/mosaic-03.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="mosaic">
+        <div class="card-media" onclick="openModal('assets/images/mosaic-04.jpg', 'mosaic-04.jpg — Beauty of Bride')">
+          <span class="media-badge">Mosaic: Beauty of Bride</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/mosaic-04.webp" alt="mosaic-04" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">mosaic-04.jpg</div>
+            <div class="target-desc">Close-up bridal portrait with maang tikka, emerald/polki choker and crimson veil</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 152542.png (Col 1)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">333 × 442</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted 'FACE OF M' campaign letters on background behind bride's head</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/mosaic-04.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/mosaic-04.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- INSTAGRAM FEED -->
+      <div class="image-card" data-category="instagram">
+        <div class="card-media" onclick="openModal('assets/images/instagram-01.jpg', 'instagram-01.jpg — Kasavu Saree Trio')">
+          <span class="media-badge">Instagram Feed</span>
+          <span class="clean-badge">Clean Inpainted</span>
+          <img src="assets/images/instagram-01.webp" alt="instagram-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">instagram-01.jpg</div>
+            <div class="target-desc">Three smiling women in festive Kerala Kasavu sarees with floral painted motifs</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150923.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">443 × 579</span></div>
+            </div>
+            <div class="cleaning-tag">Inpainted right navigation arrow, tag icon, and pagination dots</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/instagram-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/instagram-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="instagram">
+        <div class="card-media" onclick="openModal('assets/images/instagram-02.jpg', 'instagram-02.jpg — Aha! Campaign')">
+          <span class="media-badge">Instagram Feed</span>
+          <span class="clean-badge">Official Art</span>
+          <img src="assets/images/instagram-02.webp" alt="instagram-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">instagram-02.jpg</div>
+            <div class="target-desc">Official 'Aha! M. LOFT' campaign artwork: gold lion insignia on dark green foliage</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">assets/reference/instagram/insta3.png (Col 2)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">332 × 444</span></div>
+            </div>
+            <div class="cleaning-tag">Pristine campaign artwork without overlay</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/instagram-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/instagram-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="instagram">
+        <div class="card-media" onclick="openModal('assets/images/instagram-03.jpg', 'instagram-03.jpg — Bridal Sisterhood')">
+          <span class="media-badge">Instagram Feed</span>
+          <span class="clean-badge">Pristine</span>
+          <img src="assets/images/instagram-03.webp" alt="instagram-03" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">instagram-03.jpg</div>
+            <div class="target-desc">Bridal sisters celebrating in pink and ivory silk sarees</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Source:</span> <span class="meta-val">Screenshot 2026-10-01 150359.png</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">470 × 586</span></div>
+            </div>
+            <div class="cleaning-tag">Pristine clean photo; trimmed 1px borders</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/instagram-03.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/instagram-03.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- REEL POSTERS -->
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-01.jpg', 'reel-01.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 01</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-01.webp" alt="reel-01" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-01.jpg</div>
+            <div class="target-desc">Bridal saree pleating & drape in royal copper/crimson silk</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_1.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">4.0s (Frame 120)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">Extracted before text sticker overlays; clear drape texture</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-01.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-01.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-02.jpg', 'reel-02.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 02</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-02.webp" alt="reel-02" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-02.jpg</div>
+            <div class="target-desc">Bride walking gracefully in royal crimson Kanchipuram silk saree</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_2.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">18.0s (Frame 540)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">No text overlays; pristine cinematic bridal motion frame</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-02.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-02.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-03.jpg', 'reel-03.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 03</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-03.webp" alt="reel-03" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-03.jpg</div>
+            <div class="target-desc">Christian bride veil styling in handcrafted ivory corset gown</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_3.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">1.0s (Frame 30)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">Clean initial frame; matches bridal atelier aesthetic</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-03.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-03.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-04.jpg', 'reel-04.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 04</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-04.webp" alt="reel-04" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-04.jpg</div>
+            <div class="target-desc">Bridal handwork zardozi embroidery process at the atelier</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_4.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">1.0s (Frame 30)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">Clean frame showing artisan handcrafting technique</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-04.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-04.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-05.jpg', 'reel-05.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 05</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-05.webp" alt="reel-05" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-05.jpg</div>
+            <div class="target-desc">Bride twirling in gold/emerald flared bridal lehenga</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_5.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">8.0s (Frame 240)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">Clean action shot without text stickers</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-05.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-05.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-reel" onclick="openModal('assets/images/reel-posters/reel-06.jpg', 'reel-06.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 06</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-06.webp" alt="reel-06" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-06.jpg</div>
+            <div class="target-desc">Joel Jacob Mathew consulting and sketching custom bridal couture</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_6.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">4.0s (Frame 120)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">478 × 850 (9:16)</span></div>
+            </div>
+            <div class="cleaning-tag">Clean designer atelier focus shot</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-06.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-06.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-card" data-category="reels">
+        <div class="card-media aspect-square" onclick="openModal('assets/images/reel-posters/reel-07.jpg', 'reel-07.jpg Poster Frame')">
+          <span class="media-badge">Reels Poster: 07</span>
+          <span class="clean-badge">Clean Frame</span>
+          <img src="assets/images/reel-posters/reel-07.webp" alt="reel-07" loading="lazy">
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="target-name">reel-07.jpg</div>
+            <div class="target-desc">Bride in pavithrappattu saree holding floral bouquet</div>
+            <div class="meta-box">
+              <div class="meta-row"><span class="meta-label">Video:</span> <span class="meta-val">reel_7.mp4</span></div>
+              <div class="meta-row"><span class="meta-label">Timestamp:</span> <span class="meta-val">10.0s (Frame 300)</span></div>
+              <div class="meta-row"><span class="meta-label">Resolution:</span> <span class="meta-val">368 × 368 (1:1)</span></div>
+            </div>
+            <div class="cleaning-tag">Clean square feed reel frame</div>
+          </div>
+          <div class="download-strip">
+            <a href="assets/images/reel-posters/reel-07.jpg" target="_blank" class="dl-btn dl-jpg">JPG (95%)</a>
+            <a href="assets/images/reel-posters/reel-07.webp" target="_blank" class="dl-btn dl-webp">WebP (90%)</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Preview -->
+  <div class="modal-overlay" id="imageModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Image Preview</div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="Enlarged view">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterGallery(cat) {
+      // update buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const flaggedSection = document.getElementById('flagged-section');
+      const cards = document.querySelectorAll('.image-card');
+
+      if (cat === 'flagged') {
+        flaggedSection.style.display = 'block';
+        cards.forEach(c => c.style.display = 'none');
+        return;
+      } else {
+        flaggedSection.style.display = 'none';
+      }
+
+      cards.forEach(card => {
+        const categories = card.getAttribute('data-category').split(' ');
+        if (cat === 'all' || categories.includes(cat)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function openModal(imgSrc, title) {
+      document.getElementById('modalImg').src = imgSrc;
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('imageModal').classList.add('open');
+    }
+
+    function closeModal(e) {
+      document.getElementById('imageModal').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

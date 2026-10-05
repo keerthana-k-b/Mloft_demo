@@ -1,0 +1,6 @@
+M LOFT - ORIGINAL PHOTOGRAPHS NEEDED
+=====================================
+The following images contain external photographer or vendor watermarks/signatures that should not be removed by editing without the photographer's master file:
+
+- assets/reference/instagram/insta5.png (Columns 0, 1, 2): Contains third-party photographer watermark ('fr' in gold floral circle at bottom-left) and floral vendor credit ('floretta' near bouquet). Cropping would truncate the bride's saree and floral styling. Requesting high-resolution clean originals from the photographer.
+- assets/raw/Screenshot 2026-10-01 150307.png: Contains photographer credit 'tjsflare' at bottom-center. Inpainted M LOFT text at waist, but requesting original unwatermarked photography file for highest print/retina display quality.

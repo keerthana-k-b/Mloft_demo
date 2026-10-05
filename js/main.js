@@ -1,0 +1,636 @@
+/**
+ * M LOFT by Joel Jacob Mathew — Main Client Logic
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initStickyHeader();
+  initMobileDrawer();
+  initSearchModal();
+  initWishlist();
+  initWhatsAppLinks();
+  initDesktopDropdown();
+  initHeroSlideshow();
+  initProductTabs();
+  initProductCarousel();
+  initQuickViewModal();
+});
+
+/**
+ * Desktop Dropdown Toggle Support
+ */
+function initDesktopDropdown() {
+  const dropdownTrigger = document.querySelector('.main-nav .nav-item:nth-child(2) > .nav-link');
+  const navItem = dropdownTrigger ? dropdownTrigger.closest('.nav-item') : null;
+
+  if (!dropdownTrigger || !navItem) return;
+
+  dropdownTrigger.addEventListener('click', (e) => {
+    // On desktop, click can toggle dropdown
+    e.preventDefault();
+    navItem.classList.toggle('open');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!navItem.contains(e.target)) {
+      navItem.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      navItem.classList.remove('open');
+    }
+  });
+}
+
+/**
+ * Sticky Header Scroll State
+ */
+function initStickyHeader() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+}
+
+/**
+ * Mobile Navigation Drawer & Collapsible Accordion
+ */
+function initMobileDrawer() {
+  const toggleBtn = document.querySelector('.mobile-toggle');
+  const drawer = document.querySelector('.mobile-drawer');
+  const overlay = document.querySelector('.mobile-drawer-overlay');
+  const closeBtn = document.querySelector('.drawer-close-btn');
+  const accordionBtn = document.querySelector('.drawer-accordion-btn');
+  const accordionContent = document.querySelector('.drawer-accordion-content');
+
+  if (!toggleBtn || !drawer || !overlay) return;
+
+  const openDrawer = () => {
+    toggleBtn.classList.add('active');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeDrawer = () => {
+    toggleBtn.classList.remove('active');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  toggleBtn.addEventListener('click', () => {
+    if (drawer.classList.contains('open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+  overlay.addEventListener('click', closeDrawer);
+
+  // Esc key listener
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  });
+
+  // Accordion toggle
+  if (accordionBtn && accordionContent) {
+    accordionBtn.addEventListener('click', () => {
+      accordionContent.classList.toggle('open');
+      const arrow = accordionBtn.querySelector('.nav-arrow');
+      if (arrow) {
+        if (accordionContent.classList.contains('open')) {
+          arrow.style.transform = 'rotate(-135deg)';
+        } else {
+          arrow.style.transform = 'rotate(45deg)';
+        }
+      }
+    });
+  }
+}
+
+/**
+ * Search Overlay Modal
+ */
+function initSearchModal() {
+  const searchTriggers = document.querySelectorAll('.search-trigger');
+  const modal = document.querySelector('.search-modal-overlay');
+  const closeBtn = document.querySelector('.search-close-btn');
+  const searchInput = document.querySelector('.search-input');
+
+  if (!modal) return;
+
+  const openSearch = (e) => {
+    if (e) e.preventDefault();
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      if (searchInput) searchInput.focus();
+    }, 100);
+  };
+
+  const closeSearch = () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  searchTriggers.forEach(btn => btn.addEventListener('click', openSearch));
+  if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeSearch();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeSearch();
+    }
+  });
+}
+
+/**
+ * Wishlist Global Counter & Heart Toggle
+ */
+function initWishlist() {
+  const badgeCounts = document.querySelectorAll('.wishlist-badge');
+  let wishlistItems = JSON.parse(localStorage.getItem('mloft_wishlist') || '[]');
+
+  const updateBadge = () => {
+    badgeCounts.forEach(b => {
+      b.textContent = wishlistItems.length;
+      b.style.display = wishlistItems.length > 0 ? 'flex' : 'none';
+    });
+  };
+
+  const syncCardButtons = () => {
+    document.querySelectorAll('.product-card').forEach(card => {
+      const pid = card.dataset.productId;
+      const btn = card.querySelector('.product-wishlist-btn');
+      if (btn) {
+        if (wishlistItems.includes(pid)) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      }
+    });
+  };
+
+  updateBadge();
+  syncCardButtons();
+
+  // Expose global helper for product cards and modal
+  window.toggleWishlist = function(productId, btnElement) {
+    const index = wishlistItems.indexOf(productId);
+    const isAdding = index === -1;
+
+    if (isAdding) {
+      wishlistItems.push(productId);
+    } else {
+      wishlistItems.splice(index, 1);
+    }
+
+    localStorage.setItem('mloft_wishlist', JSON.stringify(wishlistItems));
+    updateBadge();
+
+    // Sync all matching card buttons on the page
+    document.querySelectorAll(`.product-card[data-product-id="${productId}"] .product-wishlist-btn`).forEach(btn => {
+      if (isAdding) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Sync Quick View modal button if open
+    const qvBtn = document.getElementById('qvWishlistBtn');
+    if (qvBtn && qvBtn.dataset.productId === productId) {
+      if (isAdding) {
+        qvBtn.classList.add('active');
+      } else {
+        qvBtn.classList.remove('active');
+      }
+    }
+  };
+}
+
+/**
+ * WhatsApp Helper for Prefilled Enquiries
+ */
+function initWhatsAppLinks() {
+  window.openWhatsAppEnquiry = function(itemName) {
+    const text = encodeURIComponent(`Hi M LOFT, I am interested in ${itemName || 'a bridal consultation'}. Please share details.`);
+    window.open(`https://wa.me/918075909720?text=${text}`, '_blank');
+  };
+}
+
+/**
+ * Hero Section Slideshow Controller
+ * - 5 Slanted parallelogram photo panels (Desktop)
+ * - Single swipeable image (Mobile)
+ * - Autoplay, pause on hover, round arrow controls, indicators, touch swipe
+ * - Respects prefers-reduced-motion
+ */
+function initHeroSlideshow() {
+  const heroSection = document.querySelector('.hero-section');
+  if (!heroSection) return;
+
+  const desktopSlides = heroSection.querySelectorAll('.hero-slide');
+  const mobileSlides = heroSection.querySelectorAll('.hero-mobile-slide');
+  const prevBtn = heroSection.querySelector('.hero-arrow-prev');
+  const nextBtn = heroSection.querySelector('.hero-arrow-next');
+  const dots = heroSection.querySelectorAll('.hero-dot');
+  const slider = heroSection.querySelector('.hero-slider');
+
+  if (desktopSlides.length === 0) return;
+
+  let currentIndex = 0;
+  let autoplayTimer = null;
+  const AUTOPLAY_INTERVAL = 5000;
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const showSlide = (index) => {
+    // Normalise index
+    const totalSlides = desktopSlides.length;
+    currentIndex = (index + totalSlides) % totalSlides;
+
+    // Update Desktop Slides
+    desktopSlides.forEach((slide, idx) => {
+      if (idx === currentIndex) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    // Update Mobile Slides (if matching count or using index modulo)
+    if (mobileSlides.length > 0) {
+      const mobIndex = currentIndex % mobileSlides.length;
+      mobileSlides.forEach((slide, idx) => {
+        if (idx === mobIndex) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+    }
+
+    // Update Indicator Dots
+    dots.forEach((dot, idx) => {
+      if (idx === currentIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  };
+
+  const nextSlide = () => {
+    showSlide(currentIndex + 1);
+  };
+
+  const prevSlide = () => {
+    showSlide(currentIndex - 1);
+  };
+
+  const startAutoplay = () => {
+    if (prefersReducedMotion) return;
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  // Button Listeners
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      nextSlide();
+      startAutoplay(); // Reset timer
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      prevSlide();
+      startAutoplay(); // Reset timer
+    });
+  }
+
+  // Dot Listeners
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSlide(idx);
+      startAutoplay();
+    });
+  });
+
+  // Pause on hover
+  heroSection.addEventListener('mouseenter', stopAutoplay);
+  heroSection.addEventListener('mouseleave', startAutoplay);
+
+  // Mobile Touch Swipe Handling
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  if (slider) {
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      startAutoplay();
+    }, { passive: true });
+  }
+
+  const handleSwipe = () => {
+    const swipeThreshold = 45;
+    if (touchEndX < touchStartX - swipeThreshold) {
+      // Swiped Left -> Next
+      nextSlide();
+    } else if (touchEndX > touchStartX + swipeThreshold) {
+      // Swiped Right -> Prev
+      prevSlide();
+    }
+  };
+
+  // Listen for reduced motion changes dynamically
+  if (window.matchMedia) {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    motionQuery.addEventListener('change', (e) => {
+      if (e.matches) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    });
+  }
+
+  // Initialize
+  showSlide(0);
+  startAutoplay();
+}
+
+/**
+ * Product Showcase Tabs Controller
+ */
+function initProductTabs() {
+  const tabBtns = document.querySelectorAll('.product-tab-btn');
+  const tabPanels = document.querySelectorAll('.product-tab-panel');
+
+  if (tabBtns.length === 0) return;
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetTabId = btn.getAttribute('data-tab');
+
+      // Update button active state
+      tabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      // Update panel visibility
+      tabPanels.forEach(panel => {
+        if (panel.id === targetTabId || panel.id === 'tab-' + targetTabId) {
+          panel.classList.add('active');
+          panel.hidden = false;
+        } else {
+          panel.classList.remove('active');
+          panel.hidden = true;
+        }
+      });
+
+      // Update carousel progress thumb for newly active tab
+      if (window.updateCarouselProgress) {
+        window.updateCarouselProgress();
+      }
+    });
+  });
+}
+
+/**
+ * Product Carousel Navigation & Progress Bar
+ */
+function initProductCarousel() {
+  const prevBtn = document.querySelector('.carousel-arrow-prev');
+  const nextBtn = document.querySelector('.carousel-arrow-next');
+  const carousels = document.querySelectorAll('.product-carousel');
+
+  if (carousels.length === 0) return;
+
+  const getActiveCarousel = () => {
+    const activePanel = document.querySelector('.product-tab-panel.active');
+    return activePanel ? activePanel.querySelector('.product-carousel') : carousels[0];
+  };
+
+  // Scroll active carousel
+  const scrollCarousel = (direction) => {
+    const carousel = getActiveCarousel();
+    if (!carousel) return;
+
+    // Card width + gap
+    const card = carousel.querySelector('.product-card');
+    const scrollAmount = card ? (card.offsetWidth + 24) * 1.5 : 320;
+
+    carousel.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth'
+    });
+  };
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollCarousel(-1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollCarousel(1);
+    });
+  }
+
+  // Update progress bar on scroll
+  carousels.forEach(carousel => {
+    carousel.addEventListener('scroll', () => {
+      if (window.updateCarouselProgress) {
+        window.updateCarouselProgress();
+      }
+    }, { passive: true });
+  });
+
+  // Enable mouse drag-to-scroll for enhanced UX
+  carousels.forEach(carousel => {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    carousel.addEventListener('mousedown', (e) => {
+      // Don't drag if clicking buttons or links
+      if (e.target.closest('button') || e.target.closest('a')) return;
+      isDown = true;
+      carousel.style.cursor = 'grabbing';
+      startX = e.pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false;
+      carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mouseup', () => {
+      isDown = false;
+      carousel.style.cursor = 'grab';
+    });
+
+    carousel.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+  });
+
+  // Expose global progress updater
+  window.updateCarouselProgress = function() {
+    const carousel = getActiveCarousel();
+    const thumb = document.querySelector('.carousel-progress-thumb');
+    if (!carousel || !thumb) return;
+
+    const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+    const progress = maxScroll > 0 ? (carousel.scrollLeft / maxScroll) : 0;
+    const visibleRatio = carousel.clientWidth / carousel.scrollWidth;
+    const thumbWidthPercent = Math.max(18, Math.min(40, visibleRatio * 100));
+    const thumbLeftPercent = progress * (100 - thumbWidthPercent);
+
+    thumb.style.width = `${thumbWidthPercent}%`;
+    thumb.style.left = `${thumbLeftPercent}%`;
+  };
+
+  // Initial update
+  setTimeout(window.updateCarouselProgress, 100);
+  window.addEventListener('resize', window.updateCarouselProgress);
+}
+
+/**
+ * Quick View Modal Logic
+ */
+function initQuickViewModal() {
+  const modal = document.getElementById('quickViewModal');
+  const closeBtn = document.getElementById('qvCloseBtn');
+  const qvWishlistBtn = document.getElementById('qvWishlistBtn');
+
+  if (!modal) return;
+
+  const closeModal = () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+
+  // Global open function
+  window.openQuickView = function(productId) {
+    const card = document.querySelector(`.product-card[data-product-id="${productId}"]`);
+    if (!card) return;
+
+    const name = card.dataset.name || 'Bridal Couture Piece';
+    const category = card.dataset.category || 'M LOFT Atelier';
+    const price = card.dataset.price || 'Price on Request';
+    const img = card.dataset.img || '';
+    const badge = card.dataset.badge || 'Exclusive';
+    const desc = card.dataset.desc || 'Handcrafted bespoke bridal wear by Joel Jacob Mathew.';
+
+    // Populate modal elements
+    const imgEl = document.getElementById('qvImg');
+    if (imgEl) {
+      imgEl.src = img;
+      imgEl.alt = name;
+    }
+
+    const metaEl = document.getElementById('qvMeta');
+    if (metaEl) metaEl.textContent = category;
+
+    const titleEl = document.getElementById('qvTitle');
+    if (titleEl) titleEl.textContent = name;
+
+    const priceEl = document.getElementById('qvPrice');
+    if (priceEl) priceEl.textContent = price;
+
+    const badgeEl = document.getElementById('qvBadge');
+    if (badgeEl) badgeEl.textContent = badge;
+
+    const descEl = document.getElementById('qvDesc');
+    if (descEl) descEl.textContent = desc;
+
+    // Prefilled WhatsApp Enquiry link
+    const waBtn = document.getElementById('qvWhatsAppBtn');
+    if (waBtn) {
+      const waText = encodeURIComponent(`Hello M LOFT, I am enquiring about the ${name} (${price}). Please share details.`);
+      waBtn.href = `https://wa.me/918075909720?text=${waText}`;
+    }
+
+    // Wishlist button state
+    if (qvWishlistBtn) {
+      qvWishlistBtn.dataset.productId = productId;
+      const wishlistItems = JSON.parse(localStorage.getItem('mloft_wishlist') || '[]');
+      if (wishlistItems.includes(productId)) {
+        qvWishlistBtn.classList.add('active');
+      } else {
+        qvWishlistBtn.classList.remove('active');
+      }
+
+      qvWishlistBtn.onclick = (e) => {
+        e.preventDefault();
+        window.toggleWishlist(productId, qvWishlistBtn);
+      };
+    }
+
+    // Open Modal
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+}
+

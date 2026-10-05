@@ -1,0 +1,10 @@
+M LOFT - SCREENSHOTS NEEDING RETAKE
+====================================
+The following screenshot regions are obscured by Instagram's dark hover overlay (white heart and comment count numbers) and could not be used. Please re-screenshot without hovering the cursor over the image.
+
+- assets/raw/Screenshot 2026-10-01 150629.png (Column 0): Covered by dark hover overlay with white heart (1,069) and comment count (7). Need re-screenshot without hovering cursor.
+- assets/raw/Screenshot 2026-10-01 152542.png (Column 0): Covered by dark hover overlay with white heart (63) and comment count (0). Need re-screenshot without hovering cursor.
+- assets/raw/Screenshot 2026-10-01 152553.png (Column 1): Covered by dark hover overlay with white heart (64) and comment count (0). Need re-screenshot without hovering cursor.
+- assets/reference/instagram/insta2.png (Column 1): Covered by dark hover overlay with white heart (71.2K) and comment count (399).
+- assets/reference/instagram/insta3.png (Column 0): Covered by dark hover overlay with white heart (505) and comment count (3).
+- assets/reference/instagram/insta4.png (Column 1): Covered by dark hover overlay with white heart (4,932) and comment count (300).

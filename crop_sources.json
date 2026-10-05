@@ -1,0 +1,344 @@
+[
+  {
+    "target": "hero-01 / engagement-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150222.png",
+    "crop_box": [
+      1,
+      2,
+      440,
+      586
+    ],
+    "cleaning": "Trimmed dark 2px border; inpainted M. LOFT lion logo & text in top-left using dilated mask",
+    "category": "Hero / Engagement",
+    "notes": "Stunning bride in pastel floral lehenga with kundan jewelry"
+  },
+  {
+    "target": "hero-02 / handwork-02",
+    "source": "assets/raw/Screenshot 2026-10-01 150343.png",
+    "crop_box": [
+      1,
+      1,
+      491,
+      582
+    ],
+    "cleaning": "Clean full portrait; trimmed edge artifacts",
+    "category": "Hero / Handwork",
+    "notes": "Bride in gold/yellow bridal lehenga with temple jewelry & kamarbandh"
+  },
+  {
+    "target": "hero-03 / hindu-bride-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150536.png",
+    "crop_box": [
+      1,
+      1,
+      443,
+      582
+    ],
+    "cleaning": "Trimmed 1px boundary; pristine photo content",
+    "category": "Hero / Hindu Bride",
+    "notes": "Bride in royal crimson Kanchipuram silk saree & groom in sherwani under floral bower"
+  },
+  {
+    "target": "hero-04 / featured-03",
+    "source": "assets/raw/Screenshot 2026-10-01 150615.png",
+    "crop_box": [
+      334,
+      0,
+      665,
+      444
+    ],
+    "cleaning": "Inpainted top-right reel icon and centered M. LOFT lion logo & text watermark",
+    "category": "Hero / Featured",
+    "notes": "Joyful laughing couple in champagne reception gown & sherwani"
+  },
+  {
+    "target": "hero-05 / christian-bride-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150307.png",
+    "crop_box": [
+      25,
+      1,
+      465,
+      589
+    ],
+    "cleaning": "Cropped 25px left black margin; inpainted thin M LOFT text watermark at waist; preserved tjsflare photographer credit at bottom",
+    "category": "Hero / Christian Bride",
+    "notes": "Christian bride with veil holding hands with groom"
+  },
+  {
+    "target": "white-gown-01 / christian-bride-02",
+    "source": "assets/reference/instagram/insta6.png",
+    "crop_box": [
+      105,
+      0,
+      437,
+      444
+    ],
+    "cleaning": "Inpainted bottom M LOFT watermark",
+    "category": "White Gown / Christian Bride",
+    "notes": "Christian bride and groom holding hands in ivory couture"
+  },
+  {
+    "target": "pavithrappattu-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150629.png",
+    "crop_box": [
+      335,
+      1,
+      666,
+      444
+    ],
+    "cleaning": "Inpainted top-right reel play icon",
+    "category": "Pavithrappattu",
+    "notes": "Woman smiling in traditional copper/rose gold silk saree"
+  },
+  {
+    "target": "roja-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150629.png",
+    "crop_box": [
+      668,
+      1,
+      999,
+      444
+    ],
+    "cleaning": "Inpainted top-right carousel multi-photo icon",
+    "category": "Roja",
+    "notes": "Model seated in crimson red silk saree with golden border"
+  },
+  {
+    "target": "handwork-01",
+    "source": "assets/raw/Screenshot 2026-10-01 152553.png",
+    "crop_box": [
+      0,
+      0,
+      331,
+      442
+    ],
+    "cleaning": "Inpainted thin horizontal grid tile line at y~145",
+    "category": "Handwork",
+    "notes": "Close-up macro of intricate zardozi handwork embroidery on silk lehenga"
+  },
+  {
+    "target": "legacy-01 / new-launch-01",
+    "source": "assets/reference/instagram/insta4.png",
+    "crop_box": [
+      24,
+      2,
+      352,
+      442
+    ],
+    "cleaning": "Trimmed 2px edge borders; clean official campaign typography & pattern",
+    "category": "Legacy / New Launch Alert",
+    "notes": "Official 'M. LOFT LEGACY' gold typography on royal maroon damask/carpet pattern"
+  },
+  {
+    "target": "legacy-02 / new-launch-02",
+    "source": "assets/raw/Screenshot 2026-10-01 152553.png",
+    "crop_box": [
+      666,
+      0,
+      994,
+      442
+    ],
+    "cleaning": "Inpainted thin horizontal grid tile line at y~145",
+    "category": "Legacy / New Launch Alert",
+    "notes": "Ornate crimson red bridal lehenga and embroidered dupatta drape"
+  },
+  {
+    "target": "featured-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150328.png",
+    "crop_box": [
+      1,
+      1,
+      476,
+      585
+    ],
+    "cleaning": "Trimmed 1px borders; pristine photo",
+    "category": "Featured Products",
+    "notes": "Bride twirling in gold/mustard lehenga with floral hair wreath"
+  },
+  {
+    "target": "featured-02",
+    "source": "assets/raw/Screenshot 2026-10-01 150503.png",
+    "crop_box": [
+      0,
+      0,
+      436,
+      594
+    ],
+    "cleaning": "Inpainted Instagram right arrow button, bottom-left user tag icon, and pagination dots",
+    "category": "Featured Products",
+    "notes": "Model in deep red velvet/silk bridal lehenga with embroidered border"
+  },
+  {
+    "target": "new-arrival-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150555.png",
+    "crop_box": [
+      0,
+      0,
+      416,
+      584
+    ],
+    "cleaning": "Inpainted bottom carousel pagination dots",
+    "category": "New Arrivals",
+    "notes": "Model in rich purple silk saree with intricate gold stripes and choker"
+  },
+  {
+    "target": "best-seller-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150615.png",
+    "crop_box": [
+      667,
+      0,
+      998,
+      444
+    ],
+    "cleaning": "Inpainted top-right reel play icon",
+    "category": "Best Sellers",
+    "notes": "Bride portrait smiling with emerald jewelry & champagne gown"
+  },
+  {
+    "target": "mosaic-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150429.png",
+    "crop_box": [
+      0,
+      0,
+      472,
+      584
+    ],
+    "cleaning": "Inpainted top-right multi-photo carousel icon",
+    "category": "Photo Mosaic (Our Brides)",
+    "notes": "Bride, groom, and bridesmaid in traditional Kerala wedding attire"
+  },
+  {
+    "target": "mosaic-02",
+    "source": "assets/raw/Screenshot 2026-10-01 150359.png",
+    "crop_box": [
+      1,
+      1,
+      471,
+      587
+    ],
+    "cleaning": "Trimmed 1px border; pristine clean photo",
+    "category": "Photo Mosaic (Happiness)",
+    "notes": "Two brides/sisters sharing a joyful moment in Kanchipuram silk sarees"
+  },
+  {
+    "target": "mosaic-03",
+    "source": "assets/reference/instagram/insta6.png",
+    "crop_box": [
+      438,
+      0,
+      770,
+      444
+    ],
+    "cleaning": "Inpainted top-right reel play icon",
+    "category": "Photo Mosaic (Handcrafted)",
+    "notes": "Joel Jacob Mathew sketching couture bridal gown with atelier design team"
+  },
+  {
+    "target": "mosaic-04",
+    "source": "assets/raw/Screenshot 2026-10-01 152542.png",
+    "crop_box": [
+      341,
+      6,
+      674,
+      448
+    ],
+    "cleaning": "Inpainted 'FACE OF M' campaign letters on background behind bride's head",
+    "category": "Photo Mosaic (Beauty of Bride)",
+    "notes": "Close-up portrait of bride with maang tikka, emerald/polki choker and crimson veil"
+  },
+  {
+    "target": "instagram-01",
+    "source": "assets/raw/Screenshot 2026-10-01 150923.png",
+    "crop_box": [
+      0,
+      0,
+      443,
+      579
+    ],
+    "cleaning": "Inpainted Instagram right arrow, tag icon, and pagination dots",
+    "category": "Follow Us On Instagram",
+    "notes": "Three smiling women in Kerala Kasavu sarees"
+  },
+  {
+    "target": "instagram-02",
+    "source": "assets/reference/instagram/insta3.png",
+    "crop_box": [
+      778,
+      0,
+      1110,
+      444
+    ],
+    "cleaning": "Pristine official campaign artwork",
+    "category": "Follow Us On Instagram",
+    "notes": "Official 'Aha! M. LOFT' campaign visual with gold lion on dark green foliage"
+  },
+  {
+    "target": "instagram-03",
+    "source": "assets/raw/Screenshot 2026-10-01 150359.png",
+    "crop_box": [
+      1,
+      1,
+      471,
+      587
+    ],
+    "cleaning": "Pristine clean photo",
+    "category": "Follow Us On Instagram",
+    "notes": "Bridal sisters celebrating in Kanchipuram sarees"
+  },
+  {
+    "target": "reel-posters/reel-01",
+    "source": "assets/reels/reel_1.mp4",
+    "crop_box": "Frame at 4.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_1.mp4",
+    "category": "Reels Poster",
+    "notes": "Bridal saree pleating & drape"
+  },
+  {
+    "target": "reel-posters/reel-02",
+    "source": "assets/reels/reel_2.mp4",
+    "crop_box": "Frame at 18.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_2.mp4",
+    "category": "Reels Poster",
+    "notes": "Bride walking in royal crimson Kanchipuram silk"
+  },
+  {
+    "target": "reel-posters/reel-03",
+    "source": "assets/reels/reel_3.mp4",
+    "crop_box": "Frame at 1.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_3.mp4",
+    "category": "Reels Poster",
+    "notes": "Christian bride veil styling in ivory gown"
+  },
+  {
+    "target": "reel-posters/reel-04",
+    "source": "assets/reels/reel_4.mp4",
+    "crop_box": "Frame at 1.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_4.mp4",
+    "category": "Reels Poster",
+    "notes": "Bridal handwork zardozi embroidery process"
+  },
+  {
+    "target": "reel-posters/reel-05",
+    "source": "assets/reels/reel_5.mp4",
+    "crop_box": "Frame at 8.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_5.mp4",
+    "category": "Reels Poster",
+    "notes": "Bridal twirling in emerald and gold lehenga"
+  },
+  {
+    "target": "reel-posters/reel-06",
+    "source": "assets/reels/reel_6.mp4",
+    "crop_box": "Frame at 4.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_6.mp4",
+    "category": "Reels Poster",
+    "notes": "Joel Jacob Mathew atelier custom bridal design"
+  },
+  {
+    "target": "reel-posters/reel-07",
+    "source": "assets/reels/reel_7.mp4",
+    "crop_box": "Frame at 10.0s",
+    "cleaning": "Clean video frame without text overlay or stickers extracted from reel_7.mp4",
+    "category": "Reels Poster",
+    "notes": "Bride in pavithrappattu saree holding floral bouquet"
+  }
+]
