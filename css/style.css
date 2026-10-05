@@ -450,8 +450,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-wa-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
   fill: #FFFFFF;
 }
 
@@ -741,23 +742,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Desktop: 5 Slanted Parallelogram Panels */
 .hero-slanted-track {
+  --slant: 130px;
   display: flex;
-  width: calc(100% + 140px);
-  margin-left: -70px;
+  width: calc(100% + var(--slant) * 2 + 40px);
+  margin-left: calc(-1 * var(--slant) - 20px);
   height: 100%;
-  gap: 10px;
   background-color: #FFFFFF; /* Crisp white gaps */
+  position: relative;
 }
 
 .hero-panel {
   flex: 1;
   height: 100%;
-  overflow: hidden;
-  transform: skewX(-13deg);
-  background-color: var(--bg-cream);
   position: relative;
+  overflow: hidden;
+  background: transparent;
+  clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
+  -webkit-clip-path: polygon(var(--slant) 0, 100% 0, calc(100% - var(--slant)) 100%, 0 100%);
   cursor: pointer;
   transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-panel + .hero-panel {
+  margin-left: calc(-1 * var(--slant) + 8px);
 }
 
 .hero-panel:hover {
@@ -769,14 +776,13 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transform-origin: top center;
-  transform: skewX(13deg) scale(1.18);
+  display: block;
+  transform: none;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .hero-panel:hover img {
-  transform-origin: top center;
-  transform: skewX(13deg) scale(1.22);
+  transform: scale(1.04);
 }
 
 /* Mobile: Single Swipeable Image (< 768px) */
@@ -2180,6 +2186,9 @@ h1, h2, h3, h4, h5, h6 {
   }
   .hero-slider {
     height: 520px;
+  }
+  .hero-slanted-track {
+    --slant: 118px;
   }
   .product-track {
     gap: 20px;
