@@ -18,7 +18,7 @@
   <meta name="theme-color" content="#0F3B3A">
 
   <!-- Master Stylesheet with cache buster -->
-  <link rel="stylesheet" href="css/style.css?v=5.0">
+  <link rel="stylesheet" href="css/style.css?v=6.0">
 </head>
 <body>
 
@@ -28,9 +28,16 @@
   <header class="site-header" id="mainHeader">
     <div class="container header-inner">
       
-      <!-- Brand Logo & Name -->
+      <!-- Mobile Hamburger Toggle (Left on mobile under 768px, >=44px tap area) -->
+      <button class="mobile-toggle" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="mobileDrawer">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+
+      <!-- Brand Logo & Name (Left on desktop, centered on mobile) -->
       <a href="index.html" class="brand-link" aria-label="M LOFT by Joel Jacob Mathew - Home">
-        <img src="assets/images/logo-badge.png" alt="M LOFT Gold Lion Insignia" class="brand-badge-img" width="52" height="52">
+        <img src="assets/images/logo-badge.png" alt="M LOFT Insignia" class="brand-badge-img" width="50" height="50">
         <div class="brand-text-wrap">
           <span class="brand-main-text">M LOFT</span>
           <span class="brand-sub-text">by Joel Jacob Mathew</span>
@@ -48,67 +55,67 @@
           <a href="collections.html" class="nav-link">
             Collections <span class="nav-arrow"></span>
           </a>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" role="menu">
             <div class="dropdown-grid">
               <a href="collections.html?c=hindu-bride" class="dropdown-card">
-                <img src="assets/images/hindu-bride-01.webp" alt="Hindu Bride" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/hindu-bride-01.webp" alt="Hindu Bride" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Hindu Bride</div>
                   <div class="dropdown-desc">Kanchipuram & temple weaves</div>
                 </div>
               </a>
 
               <a href="collections.html?c=christian-bride" class="dropdown-card">
-                <img src="assets/images/christian-bride-01.webp" alt="Christian Bride" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/christian-bride-01.webp" alt="Christian Bride" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Christian Bride</div>
                   <div class="dropdown-desc">Cathedral veils & corset gowns</div>
                 </div>
               </a>
 
               <a href="collections.html?c=engagement" class="dropdown-card">
-                <img src="assets/images/engagement-01.webp" alt="Engagement" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/engagement-01.webp" alt="Engagement" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Engagement Wear</div>
                   <div class="dropdown-desc">Pastel lehengas & modern luxury</div>
                 </div>
               </a>
 
               <a href="collections.html?c=white-gown" class="dropdown-card">
-                <img src="assets/images/white-gown-01.webp" alt="White Gown" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/white-gown-01.webp" alt="White Gown" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">White Gowns</div>
                   <div class="dropdown-desc">Handcrafted bespoke couture</div>
                 </div>
               </a>
 
               <a href="collections.html?c=pavithrappattu" class="dropdown-card">
-                <img src="assets/images/pavithrappattu-01.webp" alt="Pavithrappattu" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/pavithrappattu-01.webp" alt="Pavithrappattu" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Pavithrappattu</div>
                   <div class="dropdown-desc">Heritage silk & metallic zari</div>
                 </div>
               </a>
 
               <a href="collections.html?c=roja" class="dropdown-card">
-                <img src="assets/images/roja-01.webp" alt="Roja" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/roja-01.webp" alt="Roja" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Roja Collection</div>
                   <div class="dropdown-desc">Crimson silks & hand embroidery</div>
                 </div>
               </a>
 
               <a href="collections.html?c=handwork" class="dropdown-card">
-                <img src="assets/images/handwork-01.webp" alt="Handwork" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/handwork-01.webp" alt="Handwork" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">Handwork Details</div>
                   <div class="dropdown-desc">Artisanal zardozi & cutwork</div>
                 </div>
               </a>
 
               <a href="collections.html?c=legacy" class="dropdown-card">
-                <img src="assets/images/legacy-01.webp" alt="M. Loft Legacy" class="dropdown-thumb" width="44" height="52">
-                <div>
+                <img src="assets/images/legacy-01.webp" alt="M. Loft Legacy" class="dropdown-thumb" width="64" height="64">
+                <div class="dropdown-card-text">
                   <div class="dropdown-title">M. Loft Legacy</div>
                   <div class="dropdown-desc">Signature royal campaign</div>
                 </div>
@@ -117,7 +124,7 @@
 
             <div class="dropdown-footer">
               <a href="collections.html" class="dropdown-footer-link">
-                View All Collections &rarr;
+                View all collections &rarr;
               </a>
             </div>
           </div>
@@ -138,84 +145,130 @@
 
       <!-- Right Header Actions -->
       <div class="header-actions">
-        <!-- Search Trigger -->
+        <!-- Thin-line Search Icon (20px, 1.5px stroke, 44px tap area) -->
         <button class="icon-btn search-trigger" aria-label="Open Search">
-          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/></svg>
         </button>
 
-        <!-- Instagram Profile Link -->
-        <a href="https://www.instagram.com/mloft_by_joeljacobmathew/" target="_blank" rel="noopener" class="icon-btn" aria-label="Visit Instagram Profile">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <!-- Thin-line Instagram Icon (20px, 1.5px stroke, 44px tap area) -->
+        <a href="https://www.instagram.com/mloft_by_joeljacobmathew/" target="_blank" rel="noopener" class="icon-btn header-insta-btn" aria-label="Visit Instagram Profile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
 
-        <!-- Wishlist Indicator (Gold / Maroon Heart) -->
+        <!-- Thin-line Wishlist Heart Icon (20px, 1.5px stroke, 44px tap area) -->
         <a href="#wishlist" class="icon-btn wishlist-btn" aria-label="View Wishlist">
-          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           <span class="badge-count wishlist-badge" style="display: none;">0</span>
         </a>
 
-        <!-- WhatsApp Header Pill -->
-        <a href="https://wa.me/918075909720" target="_blank" rel="noopener" class="nav-wa-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          <span>Enquire</span>
+        <!-- Mobile WhatsApp Icon Button (Under 768px, 44px tap target) -->
+        <a href="https://wa.me/918075909720" target="_blank" rel="noopener" class="icon-btn mobile-wa-btn" aria-label="Chat on WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         </a>
 
-        <!-- Mobile Hamburger Toggle -->
-        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-          <span class="hamburger-bar"></span>
-        </button>
+        <!-- Desktop Enquire Pill (Gold-outline pill with WhatsApp icon, fills teal on hover) -->
+        <a href="https://wa.me/918075909720" target="_blank" rel="noopener" class="btn-enquire-pill" aria-label="Enquire on WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          <span>Enquire</span>
+        </a>
       </div>
 
     </div>
   </header>
 
   <!-- ========================================================================
-       Mobile Drawer Navigation
+       Mobile Drawer Navigation (Left-Slide, Ivory, Safe Area, Staggered)
        ======================================================================== -->
-  <div class="mobile-drawer-overlay"></div>
-  <aside class="mobile-drawer" aria-label="Mobile Navigation">
+  <div class="mobile-drawer-overlay" aria-hidden="true"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile Navigation" aria-hidden="true">
     <div class="drawer-header">
       <div class="brand-text-wrap">
         <span class="brand-main-text">M LOFT</span>
-        <span class="brand-sub-text">Joel Jacob Mathew</span>
+        <span class="brand-sub-text">by Joel Jacob Mathew</span>
       </div>
       <button class="drawer-close-btn" aria-label="Close Mobile Menu">&times;</button>
     </div>
 
     <nav class="drawer-nav">
-      <a href="index.html" class="drawer-link">Home</a>
+      <div class="drawer-nav-item">
+        <a href="index.html" class="drawer-link active">Home</a>
+      </div>
       
-      <!-- Collapsible Collections Accordion -->
-      <div>
-        <button class="drawer-accordion-btn">
+      <!-- Collapsible Collections Accordion with Thumbnails -->
+      <div class="drawer-nav-item">
+        <button class="drawer-accordion-btn" aria-expanded="false">
           <span>Collections</span>
           <span class="nav-arrow"></span>
         </button>
         <div class="drawer-accordion-content">
-          <a href="collections.html?c=hindu-bride" class="drawer-sublink">Hindu Bride</a>
-          <a href="collections.html?c=christian-bride" class="drawer-sublink">Christian Bride</a>
-          <a href="collections.html?c=engagement" class="drawer-sublink">Engagement Wear</a>
-          <a href="collections.html?c=white-gown" class="drawer-sublink">White Gowns</a>
-          <a href="collections.html?c=pavithrappattu" class="drawer-sublink">Pavithrappattu</a>
-          <a href="collections.html?c=roja" class="drawer-sublink">Roja Collection</a>
-          <a href="collections.html?c=handwork" class="drawer-sublink">Handwork Details</a>
-          <a href="collections.html?c=legacy" class="drawer-sublink">M. Loft Legacy</a>
-          <a href="collections.html" class="drawer-sublink" style="color: var(--accent-gold); font-weight: 600;">View All Collections &rarr;</a>
+          <a href="collections.html?c=hindu-bride" class="drawer-sublink-card">
+            <img src="assets/images/hindu-bride-01.webp" alt="Hindu Bride" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Hindu Bride</span>
+          </a>
+          <a href="collections.html?c=christian-bride" class="drawer-sublink-card">
+            <img src="assets/images/christian-bride-01.webp" alt="Christian Bride" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Christian Bride</span>
+          </a>
+          <a href="collections.html?c=engagement" class="drawer-sublink-card">
+            <img src="assets/images/engagement-01.webp" alt="Engagement Wear" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Engagement Wear</span>
+          </a>
+          <a href="collections.html?c=white-gown" class="drawer-sublink-card">
+            <img src="assets/images/white-gown-01.webp" alt="White Gowns" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">White Gowns</span>
+          </a>
+          <a href="collections.html?c=pavithrappattu" class="drawer-sublink-card">
+            <img src="assets/images/pavithrappattu-01.webp" alt="Pavithrappattu" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Pavithrappattu</span>
+          </a>
+          <a href="collections.html?c=roja" class="drawer-sublink-card">
+            <img src="assets/images/roja-01.webp" alt="Roja Collection" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Roja Collection</span>
+          </a>
+          <a href="collections.html?c=handwork" class="drawer-sublink-card">
+            <img src="assets/images/handwork-01.webp" alt="Handwork Details" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">Handwork Details</span>
+          </a>
+          <a href="collections.html?c=legacy" class="drawer-sublink-card">
+            <img src="assets/images/legacy-01.webp" alt="M. Loft Legacy" class="drawer-sublink-thumb" width="40" height="40">
+            <span class="drawer-sublink-name">M. Loft Legacy</span>
+          </a>
+          <a href="collections.html" class="drawer-sublink-all">
+            View all collections &rarr;
+          </a>
         </div>
       </div>
 
-      <a href="reels.html" class="drawer-link">Reels & Videos</a>
-      <a href="about.html" class="drawer-link">Our Heritage</a>
-      <a href="contact.html" class="drawer-link">Contact & Consultations</a>
+      <div class="drawer-nav-item">
+        <a href="reels.html" class="drawer-link">Reels</a>
+      </div>
+
+      <div class="drawer-nav-item">
+        <a href="about.html" class="drawer-link">About</a>
+      </div>
+
+      <div class="drawer-nav-item">
+        <a href="contact.html" class="drawer-link">Contact</a>
+      </div>
     </nav>
 
     <div class="drawer-footer">
       <a href="https://wa.me/918075909720" target="_blank" rel="noopener" class="drawer-wa-btn">
-        <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16 2a13.9 13.9 0 0 0-11.9 21.1L2 30l7.1-1.9A13.9 13.9 0 1 0 16 2zm0 25.5a11.5 11.5 0 0 1-5.9-1.6l-.4-.3-4.4 1.2 1.2-4.3-.3-.4A11.6 11.6 0 1 1 16 27.5zm6.4-8.6c-.3-.2-2-.1-2.3-1.1s-.8-1-1.1-1-.7 0-1 .4-1.3 1.6-1.6 1.9-.6.4-1 .2a12.8 12.8 0 0 1-3.8-2.3 14.1 14.1 0 0 1-2.6-3.3c-.2-.4 0-.6.2-.8s.4-.5.6-.7.2-.4.4-.6a1.5 1.5 0 0 0 0-.8c-.1-.2-.9-2.2-1.2-3s-.6-.7-.9-.7h-.7a1.4 1.4 0 0 0-1 .5 4.3 4.3 0 0 0-1.3 3.2 7.5 7.5 0 0 0 1.6 4 17.2 17.2 0 0 0 6.6 5.8c2.8 1.2 3.4 1 4 1a3.4 3.4 0 0 0 2.3-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.2-.4-.3-.7-.5z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         <span>Enquire on WhatsApp</span>
       </a>
+
+      <div class="drawer-contact-strip">
+        <a href="tel:8075909720" class="drawer-phone-link" aria-label="Call 8075909720">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>8075909720</span>
+        </a>
+
+        <a href="https://www.instagram.com/mloft_by_joeljacobmathew/" target="_blank" rel="noopener" class="drawer-insta-link" aria-label="Instagram Profile">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span>Instagram</span>
+        </a>
+      </div>
     </div>
   </aside>
 
@@ -1422,20 +1475,10 @@
     <section class="celebrations-section" id="celebrations" aria-label="More From Our Celebrations">
       <div class="container celebrations-container">
         
-        <div class="celebrations-header-wrap">
-          <div class="celebrations-header-text">
-            <span class="section-eyebrow">Real Weddings & Memories</span>
-            <h2 class="celebrations-heading">More from our celebrations</h2>
-            <p class="celebrations-sub">Capturing cherished memories, radiant brides, and timeless bespoke couture.</p>
-          </div>
-          <div class="celebrations-controls">
-            <button class="celebrations-arrow celebrations-prev" aria-label="Previous celebrations photo">
-              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-            </button>
-            <button class="celebrations-arrow celebrations-next" aria-label="Next celebrations photo">
-              <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-            </button>
-          </div>
+        <div class="celebrations-header">
+          <span class="section-eyebrow">Real Weddings & Memories</span>
+          <h2 class="celebrations-heading">More from our celebrations</h2>
+          <p class="celebrations-sub">Capturing cherished memories, radiant brides, and timeless bespoke couture.</p>
         </div>
 
         <!-- Horizontal Scroll-Snap Track of Tall Cards (4:5) -->
@@ -1627,6 +1670,16 @@
           </div>
         </div>
 
+        <!-- Celebrations Controls centered under track -->
+        <div class="celebrations-controls">
+          <button class="celebrations-arrow celebrations-prev" aria-label="Previous celebrations photo">
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button class="celebrations-arrow celebrations-next" aria-label="Next celebrations photo">
+            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+        </div>
+
       </div>
     </section>
 
@@ -1710,14 +1763,6 @@
         </div>
 
         <div class="reels-carousel-shell">
-          <!-- Round Arrow Buttons -->
-          <button class="reels-nav-btn reels-nav-prev" aria-label="Previous Reels">
-            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-          </button>
-          <button class="reels-nav-btn reels-nav-next" aria-label="Next Reels">
-            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-          </button>
-
           <!-- Horizontal Scroll Track -->
           <div class="reels-carousel">
             <div class="reels-track">
@@ -1829,6 +1874,16 @@
 
             </div>
           </div>
+
+          <!-- Centered Carousel Controls under track -->
+          <div class="reels-controls">
+            <button class="reels-nav-btn reels-nav-prev" aria-label="Previous Reels">
+              <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            </button>
+            <button class="reels-nav-btn reels-nav-next" aria-label="Next Reels">
+              <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </button>
+          </div>
         </div>
 
         <!-- View All Reels Button -->
@@ -1848,50 +1903,46 @@
        Step 6A · Follow Us On Instagram
        ======================================================================== -->
   <section class="insta-section reveal-on-scroll" aria-labelledby="instaHeading">
-    <div class="container">
-      <p class="section-eyebrow">Studio Snapshots</p>
-      <h2 class="section-heading" id="instaHeading">Follow Us On Instagram</h2>
+    <div class="container insta-header">
+      <span class="section-eyebrow">Studio Snapshots</span>
+      <h2 class="insta-heading section-heading" id="instaHeading">Follow Us On Instagram</h2>
     </div>
 
     <div class="insta-carousel-wrap">
-      <button class="insta-arrow insta-arrow-prev" id="instaArrowPrev" aria-label="Previous">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-      </button>
-
       <div class="insta-track-outer">
         <div class="insta-track" id="instaTrack">
 
-          <!-- Card 1 -->
+          <!-- Card 1 (Photo 1) - eager load -->
           <a href="https://www.instagram.com/mloft_by_joeljacobmathew" target="_blank" rel="noopener" class="insta-card" aria-label="View on Instagram">
             <div class="insta-img-wrap">
-              <img src="assets/images/instagram-01.webp" alt="M LOFT Instagram photo 1" loading="lazy" width="360" height="450">
+              <img src="assets/images/instagram-01.webp" alt="M LOFT Instagram photo 1" loading="eager" width="360" height="450">
               <div class="insta-hover-glyph" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </div>
             </div>
           </a>
 
-          <!-- Card 2 -->
+          <!-- Card 2 (Real photo replacing "Aha!" logo artwork) - eager load -->
           <a href="https://www.instagram.com/mloft_by_joeljacobmathew" target="_blank" rel="noopener" class="insta-card" aria-label="View on Instagram">
             <div class="insta-img-wrap">
-              <img src="assets/images/instagram-02.webp" alt="M LOFT Instagram photo 2" loading="lazy" width="360" height="450">
+              <img src="assets/images/engagement-01.webp" alt="M LOFT bridal engagement photo" loading="eager" width="360" height="450">
               <div class="insta-hover-glyph" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </div>
             </div>
           </a>
 
-          <!-- Card 3 -->
+          <!-- Card 3 (Photo 3) - eager load -->
           <a href="https://www.instagram.com/mloft_by_joeljacobmathew" target="_blank" rel="noopener" class="insta-card" aria-label="View on Instagram">
             <div class="insta-img-wrap">
-              <img src="assets/images/instagram-03.webp" alt="M LOFT Instagram photo 3" loading="lazy" width="360" height="450">
+              <img src="assets/images/instagram-03.webp" alt="M LOFT Instagram photo 3" loading="eager" width="360" height="450">
               <div class="insta-hover-glyph" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
               </div>
             </div>
           </a>
 
-          <!-- Card 4 -->
+          <!-- Card 4 (Featured 1) -->
           <a href="https://www.instagram.com/mloft_by_joeljacobmathew" target="_blank" rel="noopener" class="insta-card" aria-label="View on Instagram">
             <div class="insta-img-wrap">
               <img src="assets/images/featured-01.webp" alt="M LOFT bridal featured look" loading="lazy" width="360" height="450">
@@ -1914,9 +1965,14 @@
         </div><!-- /insta-track -->
       </div><!-- /insta-track-outer -->
 
-      <button class="insta-arrow insta-arrow-next" id="instaArrowNext" aria-label="Next">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-      </button>
+      <div class="insta-controls">
+        <button class="insta-arrow insta-arrow-prev" id="instaArrowPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        <button class="insta-arrow insta-arrow-next" id="instaArrowNext" aria-label="Next">
+          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
     </div><!-- /insta-carousel-wrap -->
 
     <div class="insta-cta-wrap">
@@ -1982,9 +2038,9 @@
        Step 6C · Bride Testimonials
        ======================================================================== -->
   <section class="testimonials-section reveal-on-scroll" aria-labelledby="testimonialsHeading">
-    <div class="container">
-      <p class="section-eyebrow">Bride Stories</p>
-      <h2 class="section-heading" id="testimonialsHeading">What Our Brides Say</h2>
+    <div class="container testimonials-header">
+      <span class="section-eyebrow">Bride Stories</span>
+      <h2 class="testimonials-heading section-heading" id="testimonialsHeading">What Our Brides Say</h2>
 
       <div class="testimonials-grid">
 
@@ -2045,6 +2101,36 @@
       </div><!-- /testimonials-grid -->
     </div>
   </section>
+
+  <!-- ========================================================================
+       Quick View Modal
+       ======================================================================== -->
+  <div class="quickview-modal-overlay" id="quickViewModal" role="dialog" aria-modal="true" aria-label="Quick View Product Modal">
+    <div class="quickview-modal-container">
+      <button class="quickview-close-btn" id="qvCloseBtn" aria-label="Close Quick View">&times;</button>
+      <div class="quickview-grid">
+        <div class="quickview-img-wrap">
+          <img id="qvImg" src="assets/images/new-arrival-01.webp" alt="Bridal Couture Piece" width="400" height="520">
+          <button class="product-wishlist-btn" id="qvWishlistBtn" aria-label="Save to Wishlist">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+        </div>
+        <div class="quickview-info-col">
+          <span class="product-badge" id="qvBadge">New Arrival</span>
+          <div class="product-meta" id="qvMeta">Bridal Collection</div>
+          <h2 class="product-title" id="qvTitle" style="font-size: 1.8rem; margin: 10px 0;">Bridal Couture Piece</h2>
+          <div class="product-price" id="qvPrice" style="font-size: 1.3rem; margin-bottom: 14px;">Price on Request</div>
+          <p class="product-desc" id="qvDesc" style="margin-bottom: 22px; line-height: 1.6; color: var(--text-muted);">
+            Handcrafted bespoke bridal wear by Joel Jacob Mathew.
+          </p>
+          <a id="qvWhatsAppBtn" href="https://wa.me/918075909720" target="_blank" rel="noopener" class="btn-product-enquire" style="width: 100%; min-height: 48px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            <span>Enquire on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================
        Reels Fullscreen Video Player Modal

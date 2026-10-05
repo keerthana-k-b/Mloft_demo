@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReelsHoverPreview();
   initReelsModal();
   initInstaCarousel();
+  initCarouselAutoAdvance();
 });
 
 /**
@@ -32,9 +33,10 @@ function initDesktopDropdown() {
   if (!dropdownTrigger || !navItem) return;
 
   dropdownTrigger.addEventListener('click', (e) => {
-    // On desktop, click can toggle dropdown
-    e.preventDefault();
-    navItem.classList.toggle('open');
+    if (window.innerWidth >= 768) {
+      e.preventDefault();
+      navItem.classList.toggle('open');
+    }
   });
 
   document.addEventListener('click', (e) => {
@@ -82,18 +84,70 @@ function initMobileDrawer() {
 
   if (!toggleBtn || !drawer || !overlay) return;
 
+  const getFocusableElements = () => {
+    return Array.from(
+      drawer.querySelectorAll('button:not([disabled]), a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    ).filter(el => el.offsetParent !== null);
+  };
+
+  const handleFocusTrap = (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = getFocusableElements();
+    if (!focusables.length) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  };
+
   const openDrawer = () => {
     toggleBtn.classList.add('active');
+    toggleBtn.setAttribute('aria-expanded', 'true');
     drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
     overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Focus close button inside drawer
+    setTimeout(() => {
+      if (closeBtn) {
+        closeBtn.focus();
+      } else {
+        const focusables = getFocusableElements();
+        if (focusables.length) focusables[0].focus();
+      }
+    }, 50);
+
+    document.addEventListener('keydown', handleFocusTrap);
   };
 
   const closeDrawer = () => {
     toggleBtn.classList.remove('active');
+    toggleBtn.setAttribute('aria-expanded', 'false');
     drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
     overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+
+    document.removeEventListener('keydown', handleFocusTrap);
+
+    // Return focus to hamburger button
+    if (toggleBtn) {
+      toggleBtn.focus();
+    }
   };
 
   toggleBtn.addEventListener('click', () => {
@@ -117,17 +171,21 @@ function initMobileDrawer() {
   // Accordion toggle
   if (accordionBtn && accordionContent) {
     accordionBtn.addEventListener('click', () => {
-      accordionContent.classList.toggle('open');
+      const isOpen = accordionContent.classList.toggle('open');
+      accordionBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       const arrow = accordionBtn.querySelector('.nav-arrow');
       if (arrow) {
-        if (accordionContent.classList.contains('open')) {
-          arrow.style.transform = 'rotate(-135deg)';
-        } else {
-          arrow.style.transform = 'rotate(45deg)';
-        }
+        arrow.style.transform = isOpen ? 'rotate(-135deg)' : 'rotate(45deg)';
       }
     });
   }
+
+  // Auto-close if screen resized to desktop width
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768 && drawer.classList.contains('open')) {
+      closeDrawer();
+    }
+  }, { passive: true });
 }
 
 /**
@@ -429,11 +487,21 @@ function initProductTabs() {
         if (panel.id === targetTabId || panel.id === 'tab-' + targetTabId) {
           panel.classList.add('active');
           panel.hidden = false;
+          // Switching product tabs resets that carousel to the first card
+          const carousel = panel.querySelector('.product-carousel');
+          if (carousel) {
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+          }
         } else {
           panel.classList.remove('active');
           panel.hidden = true;
         }
       });
+
+      // Reset autoplay timer for newly active tab
+      if (typeof window.onProductTabSwitch === 'function') {
+        window.onProductTabSwitch();
+      }
 
       // Update carousel progress thumb for newly active tab
       if (window.updateCarouselProgress) {
@@ -561,8 +629,12 @@ function initQuickViewModal() {
 
   if (!modal) return;
 
+  const allProductCards = Array.from(document.querySelectorAll('.product-card'));
+  let currentQvIndex = 0;
+
   const closeModal = () => {
     modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
     document.body.style.overflow = '';
   };
 
@@ -578,10 +650,39 @@ function initQuickViewModal() {
     }
   });
 
+  const showProductByIndex = (index) => {
+    if (!allProductCards.length) return;
+    currentQvIndex = (index + allProductCards.length) % allProductCards.length;
+    const card = allProductCards[currentQvIndex];
+    if (card && card.dataset.productId) {
+      window.openQuickView(card.dataset.productId);
+    }
+  };
+
+  // Mobile Touch Swipe Handling to move between products
+  let touchStartX = 0;
+  let touchEndX = 0;
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (diff < -45) {
+      showProductByIndex(currentQvIndex + 1);
+    } else if (diff > 45) {
+      showProductByIndex(currentQvIndex - 1);
+    }
+  }, { passive: true });
+
   // Global open function
   window.openQuickView = function(productId) {
     const card = document.querySelector(`.product-card[data-product-id="${productId}"]`);
     if (!card) return;
+
+    currentQvIndex = allProductCards.indexOf(card);
+    if (currentQvIndex === -1) currentQvIndex = 0;
 
     const name = card.dataset.name || 'Bridal Couture Piece';
     const category = card.dataset.category || 'M LOFT Atelier';
@@ -635,8 +736,9 @@ function initQuickViewModal() {
       };
     }
 
-    // Open Modal
+    // Open Modal, lock body scroll and hide floating whatsapp
     modal.classList.add('open');
+    document.body.classList.add('modal-open');
     document.body.style.overflow = 'hidden';
   };
 }
@@ -704,11 +806,13 @@ function initCelebrationLightbox() {
     requestAnimationFrame(() => {
       lightbox.classList.add('open');
     });
+    document.body.classList.add('modal-open', 'lightbox-open');
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     lightbox.classList.remove('open');
+    document.body.classList.remove('modal-open', 'lightbox-open');
     setTimeout(() => {
       lightbox.style.display = 'none';
       if (imgEl) imgEl.src = '';
@@ -718,6 +822,23 @@ function initCelebrationLightbox() {
 
   const showPrev = () => openLightbox(currentIndex - 1);
   const showNext = () => openLightbox(currentIndex + 1);
+
+  // Mobile Touch Swipe Handling
+  let touchStartX = 0;
+  let touchEndX = 0;
+  lightbox.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (diff < -45) {
+      showNext();
+    } else if (diff > 45) {
+      showPrev();
+    }
+  }, { passive: true });
 
   // Card click & enter key triggers
   cards.forEach((card, idx) => {
@@ -954,6 +1075,7 @@ function initReelsModal() {
   const openModal = (index) => {
     loadReel(index);
     modal.classList.add('open');
+    document.body.classList.add('modal-open', 'reel-modal-open');
     document.body.style.overflow = 'hidden';
   };
 
@@ -962,6 +1084,7 @@ function initReelsModal() {
     modalVideo.removeAttribute('src');
     modalVideo.load();
     modal.classList.remove('open');
+    document.body.classList.remove('modal-open', 'reel-modal-open');
     document.body.style.overflow = '';
   };
 
@@ -974,6 +1097,23 @@ function initReelsModal() {
     const nextIdx = (currentReelIndex + 1) % reelsData.length;
     loadReel(nextIdx);
   };
+
+  // Mobile Touch Swipe Handling to move between reels
+  let touchStartX = 0;
+  let touchEndX = 0;
+  modal.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  modal.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (diff < -45) {
+      showNextReel();
+    } else if (diff > 45) {
+      showPrevReel();
+    }
+  }, { passive: true });
 
   // Card click triggers
   cards.forEach((card, idx) => {
@@ -1036,22 +1176,29 @@ function initInstaCarousel() {
 
   function getVisible() {
     const w = window.innerWidth;
-    if (w < 768) return 1;
+    if (w < 768) return 1.4;
     if (w < 1024) return 2;
     return 3;
   }
 
   function getCardWidth() {
     if (!cards.length) return 0;
-    return cards[0].getBoundingClientRect().width + 16; // gap: 16px
+    const cardRect = cards[0].getBoundingClientRect();
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 16;
+    return cardRect.width + gap;
   }
 
   function slide() {
-    const maxIndex = Math.max(0, cards.length - getVisible());
+    const visible = getVisible();
+    const maxIndex = Math.max(0, Math.ceil(cards.length - visible));
     currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
-    track.style.transform = `translateX(-${currentIndex * getCardWidth()}px)`;
+    const cardW = getCardWidth();
+    const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+    const targetScroll = maxScroll > 0 ? Math.min(currentIndex * cardW, maxScroll) : currentIndex * cardW;
+    track.style.transform = `translateX(-${targetScroll}px)`;
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= maxIndex;
+    nextBtn.disabled = currentIndex >= maxIndex || (maxScroll > 0 && targetScroll >= maxScroll - 2);
   }
 
   prevBtn.addEventListener('click', () => { currentIndex--; slide(); });
@@ -1068,6 +1215,222 @@ function initInstaCarousel() {
       if (dx < 0) { currentIndex++; slide(); } else { currentIndex--; slide(); }
     }
   }, { passive: true });
+  // Expose advance function for auto-advance
+  window.advanceInstaCarousel = function() {
+    const visible = getVisible();
+    const maxIndex = Math.max(0, Math.ceil(cards.length - visible));
+    if (currentIndex >= maxIndex) {
+      currentIndex = 0;
+    } else {
+      currentIndex++;
+    }
+    slide();
+  };
+}
+
+
+/**
+ * Gentle Auto-Advance for Home-Page Carousels
+ * - Every 4s moves one card to next snap position with smooth scroll (wrap around at end).
+ * - Pauses on hover, keyboard focus, touch or drag, modal/lightbox/drawer open, tab hidden, and offscreen.
+ * - Resumes 3s after interaction ends.
+ * - Respects prefers-reduced-motion.
+ * - Staggers start times.
+ */
+function initCarouselAutoAdvance() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return; // No autoplay if reduced motion preferred
+  }
+
+  function isAnyOverlayOpen() {
+    return document.body.classList.contains('modal-open') ||
+           document.body.classList.contains('lightbox-open') ||
+           document.body.classList.contains('reel-modal-open') ||
+           document.body.classList.contains('drawer-open') ||
+           Boolean(document.querySelector('.mobile-drawer.open, .quickview-modal-overlay.open, .reel-modal-overlay.open, .celebration-lightbox.open, .search-modal-overlay.open'));
+  }
+
+  function setupAutoAdvance({ container, advance, initialDelay, isEnabled }) {
+    if (!container) return { pause: () => {} };
+
+    let isHovered = false;
+    let isFocused = false;
+    let isInteracting = false;
+    let isIntersecting = false;
+    let resumeTimestamp = Date.now() + initialDelay;
+    let lastAdvanceTime = Date.now() + initialDelay - 4000;
+
+    function pauseFor(ms) {
+      resumeTimestamp = Math.max(resumeTimestamp, Date.now() + ms);
+      lastAdvanceTime = Date.now();
+    }
+
+    container.addEventListener('mouseenter', () => { isHovered = true; });
+    container.addEventListener('mouseleave', () => {
+      isHovered = false;
+      pauseFor(3000);
+    });
+
+    container.addEventListener('focusin', () => { isFocused = true; });
+    container.addEventListener('focusout', () => {
+      isFocused = false;
+      pauseFor(3000);
+    });
+
+    const startInteraction = () => { isInteracting = true; };
+    const endInteraction = () => {
+      isInteracting = false;
+      pauseFor(3000);
+    };
+
+    container.addEventListener('touchstart', startInteraction, { passive: true });
+    container.addEventListener('touchend', endInteraction, { passive: true });
+    container.addEventListener('touchcancel', endInteraction, { passive: true });
+    container.addEventListener('pointerdown', startInteraction, { passive: true });
+    container.addEventListener('pointerup', endInteraction, { passive: true });
+    container.addEventListener('pointercancel', endInteraction, { passive: true });
+
+    container.addEventListener('click', (e) => {
+      if (e.target.closest('button, a')) {
+        pauseFor(3000);
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const was = isIntersecting;
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && !was) {
+          pauseFor(3000);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    observer.observe(container);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        pauseFor(3000);
+      }
+    });
+
+    setInterval(() => {
+      if (document.hidden) return;
+      if (!isIntersecting) return;
+      if (isHovered || isFocused || isInteracting) return;
+      if (Date.now() < resumeTimestamp) return;
+      if (isAnyOverlayOpen()) return;
+      if (isEnabled && !isEnabled()) return;
+
+      if (Date.now() - lastAdvanceTime >= 4000) {
+        lastAdvanceTime = Date.now();
+        advance();
+      }
+    }, 200);
+
+    return {
+      pause: pauseFor
+    };
+  }
+
+  // 1. Product Tabs Track (initialDelay: 800ms)
+  const productSection = document.getElementById('products') || document.querySelector('.products-section');
+  const productManager = setupAutoAdvance({
+    container: productSection,
+    initialDelay: 800,
+    advance: () => {
+      const activePanel = document.querySelector('.product-tab-panel.active');
+      const carousel = activePanel ? activePanel.querySelector('.product-carousel') : document.querySelector('.product-carousel');
+      if (!carousel) return;
+      const card = carousel.querySelector('.product-card');
+      const gap = parseFloat(window.getComputedStyle(carousel).gap) || 24;
+      const step = card ? card.offsetWidth + gap : 320;
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft >= maxScroll - 15) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    }
+  });
+
+  window.onProductTabSwitch = function() {
+    if (productManager) productManager.pause(3000);
+  };
+
+  // 2. Celebrations Row (initialDelay: 1600ms)
+  const celebrationsSection = document.getElementById('celebrations') || document.querySelector('.celebrations-section');
+  setupAutoAdvance({
+    container: celebrationsSection,
+    initialDelay: 1600,
+    advance: () => {
+      const track = document.getElementById('celebrationsTrack');
+      if (!track) return;
+      const card = track.querySelector('.celebration-card');
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
+      const step = card ? card.offsetWidth + gap : 304;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (track.scrollLeft >= maxScroll - 15) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    }
+  });
+
+  // 3. Reels Carousel (initialDelay: 2400ms)
+  const reelsSection = document.getElementById('reels') || document.querySelector('.reels-section');
+  setupAutoAdvance({
+    container: reelsSection,
+    initialDelay: 2400,
+    advance: () => {
+      const carousel = document.querySelector('.reels-carousel');
+      if (!carousel) return;
+      const card = carousel.querySelector('.reel-card');
+      const track = carousel.querySelector('.reels-track') || carousel;
+      const gap = parseFloat(window.getComputedStyle(track).gap) || 18;
+      const step = card ? card.offsetWidth + gap : 280;
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      if (carousel.scrollLeft >= maxScroll - 15) {
+        carousel.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        carousel.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    }
+  });
+
+  // 4. Instagram Strip (initialDelay: 3200ms)
+  const instaSection = document.querySelector('.insta-section');
+  setupAutoAdvance({
+    container: instaSection,
+    initialDelay: 3200,
+    advance: () => {
+      if (typeof window.advanceInstaCarousel === 'function') {
+        window.advanceInstaCarousel();
+      }
+    }
+  });
+
+  // 5. Testimonials Row on Mobile (initialDelay: 4000ms)
+  const testimonialsSection = document.querySelector('.testimonials-section');
+  setupAutoAdvance({
+    container: testimonialsSection,
+    initialDelay: 4000,
+    isEnabled: () => window.innerWidth < 768,
+    advance: () => {
+      const grid = document.querySelector('.testimonials-grid');
+      if (!grid || window.innerWidth >= 768) return;
+      const card = grid.querySelector('.testimonial-card');
+      const gap = parseFloat(window.getComputedStyle(grid).gap) || 16;
+      const step = card ? card.offsetWidth + gap : 280;
+      const maxScroll = grid.scrollWidth - grid.clientWidth;
+      if (grid.scrollLeft >= maxScroll - 15) {
+        grid.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        grid.scrollBy({ left: step, behavior: 'smooth' });
+      }
+    }
+  });
 }
 
 
