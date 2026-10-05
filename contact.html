@@ -282,21 +282,152 @@
     </div>
   </div>
 
-  <!-- Main Placeholder Content -->
-  <main style="min-height: 60vh; padding: 100px 0; text-align: center;">
-    <div class="container">
-      <div class="section-header">
-        <h1 class="section-title">Contact & Consultations</h1>
-        <p class="section-subtitle">Coming Soon — Step 9 Studio & Appointments</p>
+  <!-- Main Contact & Consultation Section -->
+  <main class="contact-main-wrap" id="mainContent">
+
+    <!-- Header Banner -->
+    <section class="contact-hero-banner">
+      <div class="container">
+        <span class="section-eyebrow">Bespoke Appointments</span>
+        <h1 class="collections-hero-title">Contact Our Atelier</h1>
+        <p class="collections-hero-subtitle">
+          Visit our bridal boutique in Changanassery, Kerala or reserve a private one-on-one styling consultation with designer Joel Jacob Mathew.
+        </p>
       </div>
-      <p style="max-width: 600px; margin: 0 auto 30px; color: var(--text-muted); line-height: 1.8;">
-        Find our Changanassery boutique on Google Maps, book in-person bridal consultations, and submit bespoke design requests in Step 9.
-      </p>
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="https://wa.me/918075909720" target="_blank" rel="noopener" class="nav-wa-btn" style="display: inline-flex;">WhatsApp Consultation</a>
-        <a href="index.html" class="icon-btn" style="width: auto; padding: 0 20px; border-radius: var(--radius-pill); border: 1px solid var(--border-soft);">&larr; Return Home</a>
+    </section>
+
+    <!-- Contact & Consultation Layout -->
+    <section class="contact-section" id="consultation">
+      <div class="container">
+        <div class="contact-layout-grid">
+          
+          <!-- Left: Atelier Address, Hours & Details -->
+          <div class="contact-info-card">
+            <h2 class="contact-card-title">Atelier Information</h2>
+
+            <!-- Boutique Address -->
+            <div class="contact-detail-row">
+              <div class="contact-icon-circle" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Boutique Address</div>
+                <div class="contact-value">
+                  <strong>M LOFT By Joel Jacob Mathew</strong><br>
+                  Changanassery, Kerala 686101
+                </div>
+                <a href="https://maps.app.goo.gl/oqBwRcnb2jX92qv67" target="_blank" rel="noopener" class="btn-gmaps-link">
+                  <span>Open in Google Maps &rarr;</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Phone & WhatsApp -->
+            <div class="contact-detail-row">
+              <div class="contact-icon-circle" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Phone &amp; WhatsApp</div>
+                <div class="contact-value">
+                  <a href="tel:8075909720">8075909720</a><br>
+                  <a href="https://wa.me/918075909720" target="_blank" rel="noopener" style="font-size: 0.85rem; color: #25D366; font-weight: 600;">
+                    Chat on WhatsApp: 8075909720 &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="contact-detail-row">
+              <div class="contact-icon-circle" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              </div>
+              <div>
+                <div class="contact-label">Official Instagram</div>
+                <div class="contact-value">
+                  <a href="https://www.instagram.com/mloft_by_joeljacobmathew/" target="_blank" rel="noopener">
+                    @mloft_by_joeljacobmathew
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clearly Marked Sample Opening Hours Box -->
+            <div class="sample-story-box" style="margin-top: 28px; margin-bottom: 0;">
+              <span class="sample-story-label">Sample Opening Hours</span>
+              <div style="font-size: 0.88rem; line-height: 1.7; color: var(--text-body);">
+                <strong>[Sample Schedule:</strong><br>
+                Monday – Saturday: 10:00 AM – 7:30 PM<br>
+                Sunday: By Prior Appointment Only<br>
+                <em>Private bridal trial fittings by appointment]</em>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Consultation Booking Form -->
+          <div class="contact-form-card">
+            <h2 class="form-title">Book a Bridal Consultation</h2>
+            <p class="form-subtitle">Fill in your celebration details below. Submitting will validate and open WhatsApp with your pre-filled inquiry.</p>
+
+            <form id="consultationForm" onsubmit="handleConsultationSubmit(event)">
+              
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="consultName" class="form-label">Full Name <span class="req">*</span></label>
+                  <input type="text" id="consultName" class="form-input" placeholder="e.g. Ananya Menon" required>
+                </div>
+                <div class="form-group">
+                  <label for="consultPhone" class="form-label">Phone Number <span class="req">*</span></label>
+                  <input type="tel" id="consultPhone" class="form-input" placeholder="e.g. 9876543210" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="consultEvent" class="form-label">Event Type <span class="req">*</span></label>
+                  <select id="consultEvent" class="form-select" required>
+                    <option value="" disabled selected>Select Celebration Type</option>
+                    <option value="Hindu Bridal Silk">Hindu Bridal Silk (Kanchipuram / Muhurtham)</option>
+                    <option value="Christian Bridal Couture">Christian Bridal Gown / Veil</option>
+                    <option value="Engagement & Sangeet">Engagement &amp; Sangeet Lehenga</option>
+                    <option value="White Gown Ceremony">White Gown Ceremony</option>
+                    <option value="Pavithrappattu Silk">Pavithrappattu Heritage Silk</option>
+                    <option value="Roja Capsule Edition">Roja Capsule Saree</option>
+                    <option value="Artisanal Handwork Blouse">Artisanal Handwork / Blouse</option>
+                    <option value="Custom Bespoke Design">Custom Bespoke Atelier Design</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="consultDate" class="form-label">Wedding / Event Date <span class="req">*</span></label>
+                  <input type="date" id="consultDate" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="consultMessage" class="form-label">Customization Notes &amp; Message</label>
+                <textarea id="consultMessage" class="form-textarea" placeholder="Share your preferred colors, wedding venue, specific creations you like, or consultation queries..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit-consult">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                <span>Send via WhatsApp (Pre-Filled)</span>
+              </button>
+
+              <!-- Success Alert Banner -->
+              <div id="formSuccessBanner" class="form-success-banner" role="alert">
+                <strong>Consultation Request Prepared!</strong><br>
+                <span id="successBannerMsg">Thank you! Your details have been opened in WhatsApp. We look forward to welcoming you to M LOFT.</span>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
       </div>
-    </div>
+    </section>
+
   </main>
 
   <!-- Site Footer -->
@@ -344,9 +475,9 @@
           <h3 class="footer-col-title">Customer Care</h3>
           <ul class="footer-links-list">
             <li><a href="about.html" class="footer-link">About Our Atelier</a></li>
-            <li><a href="contact.html" class="footer-link">Contact & Location</a></li>
-            <li><a href="#" class="footer-link">Consultation Booking</a></li>
-            <li><a href="#" class="footer-link">Custom Made FAQ</a></li>
+            <li><a href="contact.html" class="footer-link">Contact &amp; Location</a></li>
+            <li><a href="#consultation" class="footer-link">Consultation Booking</a></li>
+            <li><a href="about.html#process" class="footer-link">Bespoke Process &amp; FAQ</a></li>
             <li><a href="#" class="footer-link">Return & Refund Policy</a></li>
             <li><a href="#" class="footer-link">Terms & Conditions</a></li>
             <li><a href="#" class="footer-link">Privacy Policy</a></li>
@@ -392,5 +523,61 @@
 
   <!-- Client Script -->
   <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const enquiry = params.get('enquiry');
+      if (enquiry) {
+        const msgField = document.getElementById('consultMessage');
+        if (msgField) {
+          msgField.value = `Hello, I would like to book a bridal consultation to discuss: ${decodeURIComponent(enquiry)}.`;
+        }
+      }
+
+      const dateField = document.getElementById('consultDate');
+      if (dateField) {
+        const today = new Date().toISOString().split('T')[0];
+        dateField.min = today;
+      }
+    });
+
+    function handleConsultationSubmit(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('consultName').value.trim();
+      const phone = document.getElementById('consultPhone').value.trim();
+      const eventType = document.getElementById('consultEvent').value;
+      const date = document.getElementById('consultDate').value;
+      const message = document.getElementById('consultMessage').value.trim();
+
+      if (!name || !phone || !eventType || !date) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      let waText = `Hello M LOFT, I would like to book a bridal consultation:\n\n` +
+                   `• Name: ${name}\n` +
+                   `• Phone: ${phone}\n` +
+                   `• Event: ${eventType}\n` +
+                   `• Date: ${date}`;
+
+      if (message) {
+        waText += `\n• Notes: ${message}`;
+      }
+
+      const waUrl = `https://wa.me/918075909720?text=${encodeURIComponent(waText)}`;
+      window.open(waUrl, '_blank');
+
+      const banner = document.getElementById('formSuccessBanner');
+      const msgEl = document.getElementById('successBannerMsg');
+      if (banner) {
+        if (msgEl) {
+          msgEl.textContent = `Thank you, ${name}! Your consultation request for ${eventType} on ${date} has been prepared and opened in WhatsApp. We will connect with you shortly.`;
+        }
+        banner.classList.add('active');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+  </script>
 </body>
 </html>
