@@ -804,6 +804,40 @@ function initReelsCarousel() {
   nextBtn.addEventListener('click', () => {
     carousel.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
   });
+
+  const updateCenterCard = () => {
+    if (window.innerWidth < 1025) return;
+    const cards = carousel.querySelectorAll('.reel-card');
+    if (!cards.length) return;
+    const carouselRect = carousel.getBoundingClientRect();
+    const carouselCenter = carouselRect.left + carouselRect.width / 2;
+
+    let closestCard = null;
+    let closestDist = Infinity;
+
+    cards.forEach(card => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const dist = Math.abs(carouselCenter - cardCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestCard = card;
+      }
+    });
+
+    cards.forEach(card => {
+      if (card === closestCard) {
+        card.classList.add('is-center');
+      } else {
+        card.classList.remove('is-center');
+      }
+    });
+  };
+
+  carousel.addEventListener('scroll', updateCenterCard, { passive: true });
+  window.addEventListener('resize', updateCenterCard);
+  // Initial check after render
+  setTimeout(updateCenterCard, 100);
 }
 
 /**
