@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initProductTabs();
   initProductCarousel();
   initQuickViewModal();
+  initCelebrationsRow();
+  initCelebrationLightbox();
+  initScrollFadeUp();
+  initReelsCarousel();
+  initReelsHoverPreview();
+  initReelsModal();
 });
 
 /**
@@ -633,4 +639,351 @@ function initQuickViewModal() {
     document.body.style.overflow = 'hidden';
   };
 }
+
+/**
+ * Celebrations Scroll-Snap Track Arrow Controls
+ */
+function initCelebrationsRow() {
+  const track = document.getElementById('celebrationsTrack');
+  const prevBtn = document.querySelector('.celebrations-prev');
+  const nextBtn = document.querySelector('.celebrations-next');
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const getScrollDistance = () => {
+    const card = track.querySelector('.celebration-card');
+    return card ? card.offsetWidth + 24 : 304;
+  };
+
+  prevBtn.addEventListener('click', () => {
+    track.scrollBy({ left: -getScrollDistance() * 2, behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    track.scrollBy({ left: getScrollDistance() * 2, behavior: 'smooth' });
+  });
+}
+
+/**
+ * Celebration Lightbox Modal with Keyboard and Arrow Navigation
+ */
+function initCelebrationLightbox() {
+  const lightbox = document.getElementById('celebrationLightbox');
+  const backdrop = document.getElementById('lightboxBackdrop');
+  const closeBtn = document.getElementById('lightboxCloseBtn');
+  const prevBtn = document.getElementById('lightboxPrevBtn');
+  const nextBtn = document.getElementById('lightboxNextBtn');
+  const imgEl = document.getElementById('lightboxImg');
+  const captionEl = document.getElementById('lightboxCaption');
+  const counterEl = document.getElementById('lightboxCounter');
+  const cards = Array.from(document.querySelectorAll('.celebration-card'));
+
+  if (!lightbox || !cards.length) return;
+
+  let currentIndex = 0;
+
+  const openLightbox = (index) => {
+    currentIndex = (index + cards.length) % cards.length;
+    const card = cards[currentIndex];
+    const fullImg = card.dataset.full || '';
+    const caption = card.dataset.caption || '';
+
+    if (imgEl) {
+      imgEl.src = fullImg;
+      imgEl.alt = caption;
+    }
+    if (captionEl) {
+      captionEl.innerHTML = caption;
+    }
+    if (counterEl) {
+      counterEl.textContent = `${currentIndex + 1} / ${cards.length}`;
+    }
+
+    lightbox.style.display = 'flex';
+    requestAnimationFrame(() => {
+      lightbox.classList.add('open');
+    });
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('open');
+    setTimeout(() => {
+      lightbox.style.display = 'none';
+      if (imgEl) imgEl.src = '';
+    }, 280);
+    document.body.style.overflow = '';
+  };
+
+  const showPrev = () => openLightbox(currentIndex - 1);
+  const showNext = () => openLightbox(currentIndex + 1);
+
+  // Card click & enter key triggers
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', () => openLightbox(idx));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(idx);
+      }
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+  if (backdrop) backdrop.addEventListener('click', closeLightbox);
+  if (prevBtn) prevBtn.addEventListener('click', showPrev);
+  if (nextBtn) nextBtn.addEventListener('click', showNext);
+
+  // Keyboard navigation: Esc, Left, Right
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      showPrev();
+    } else if (e.key === 'ArrowRight') {
+      showNext();
+    }
+  });
+}
+
+/**
+ * Gentle staggered fade-up on scroll (IntersectionObserver, reduced-motion safe)
+ */
+function initScrollFadeUp() {
+  const elements = document.querySelectorAll('.reveal-on-scroll');
+  if (!elements.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    elements.forEach(el => el.classList.add('is-revealed'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.1
+  });
+
+  elements.forEach((el, index) => {
+    const delay = (index % 4) * 0.12;
+    el.style.transitionDelay = `${delay}s`;
+    observer.observe(el);
+  });
+}
+
+/**
+ * Reels Horizontal Carousel Controls
+ */
+function initReelsCarousel() {
+  const carousel = document.querySelector('.reels-carousel');
+  const prevBtn = document.querySelector('.reels-nav-prev');
+  const nextBtn = document.querySelector('.reels-nav-next');
+
+  if (!carousel || !prevBtn || !nextBtn) return;
+
+  const getScrollDistance = () => {
+    const card = carousel.querySelector('.reel-card');
+    if (!card) return 260;
+    const cardRect = card.getBoundingClientRect();
+    return (cardRect.width + 18) * 1.5;
+  };
+
+  prevBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
+  });
+}
+
+/**
+ * Desktop Hover Preview for Reel Cards
+ * Muted, loads only on hover, mobile never autoplays.
+ */
+function initReelsHoverPreview() {
+  const isHoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!isHoverCapable) return;
+
+  const cards = document.querySelectorAll('.reel-card');
+
+  cards.forEach(card => {
+    const video = card.querySelector('.reel-card-video');
+    if (!video) return;
+
+    card.addEventListener('mouseenter', () => {
+      // Pause any other playing card previews
+      document.querySelectorAll('.reel-card-video').forEach(v => {
+        if (v !== video) {
+          v.pause();
+          const parent = v.closest('.reel-card');
+          if (parent) parent.classList.remove('is-previewing');
+        }
+      });
+
+      // Lazy load video src
+      if (!video.src && video.dataset.src) {
+        video.src = video.dataset.src;
+        video.load();
+      }
+
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          card.classList.add('is-previewing');
+        }).catch(() => {});
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      video.pause();
+      card.classList.remove('is-previewing');
+    });
+  });
+}
+
+/**
+ * Fullscreen Video Player Modal for Reels
+ * Controls, sound on, Esc to close, click outside to close, prev/next arrows,
+ * WhatsApp Enquire link, and only one video playing at a time.
+ */
+function initReelsModal() {
+  const modal = document.getElementById('reelModal');
+  const modalVideo = document.getElementById('reelModalVideo');
+  const modalTitle = document.getElementById('reelModalTitle');
+  const modalCategory = document.getElementById('reelModalCategory');
+  const modalPrice = document.getElementById('reelModalPrice');
+  const modalEnquireBtn = document.getElementById('reelModalEnquireBtn');
+  const closeBtn = document.getElementById('reelModalClose');
+  const prevBtn = document.getElementById('reelModalPrev');
+  const nextBtn = document.getElementById('reelModalNext');
+
+  if (!modal || !modalVideo) return;
+
+  // Collect reel data from cards on page
+  const cards = Array.from(document.querySelectorAll('.reel-card'));
+  if (!cards.length) return;
+
+  const reelsData = cards.map(c => ({
+    video: c.dataset.video || '',
+    title: c.dataset.title || 'M LOFT Bespoke Bridal',
+    category: c.dataset.category || 'Bridal Couture',
+    price: c.dataset.price || '',
+  }));
+
+  let currentReelIndex = 0;
+
+  const loadReel = (index) => {
+    currentReelIndex = index;
+    const item = reelsData[currentReelIndex];
+    if (!item) return;
+
+    // Pause all preview videos on cards
+    document.querySelectorAll('.reel-card-video').forEach(v => {
+      v.pause();
+      const parent = v.closest('.reel-card');
+      if (parent) parent.classList.remove('is-previewing');
+    });
+
+    // Set modal video & un-mute for full player experience
+    modalVideo.pause();
+    modalVideo.src = item.video;
+    modalVideo.muted = false;
+    modalVideo.load();
+
+    if (modalTitle) modalTitle.textContent = item.title;
+    if (modalCategory) modalCategory.textContent = item.category;
+    if (modalPrice) modalPrice.textContent = item.price;
+
+    if (modalEnquireBtn) {
+      const waMsg = encodeURIComponent(`Hello M LOFT, I would like to enquire about the ${item.title} (${item.price}) from your Watch & Shop showcase.`);
+      modalEnquireBtn.href = `https://wa.me/918075909720?text=${waMsg}`;
+    }
+
+    const playPromise = modalVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {});
+    }
+  };
+
+  const openModal = (index) => {
+    loadReel(index);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  const showPrevReel = () => {
+    const nextIdx = (currentReelIndex - 1 + reelsData.length) % reelsData.length;
+    loadReel(nextIdx);
+  };
+
+  const showNextReel = () => {
+    const nextIdx = (currentReelIndex + 1) % reelsData.length;
+    loadReel(nextIdx);
+  };
+
+  // Card click triggers
+  cards.forEach((card, idx) => {
+    card.addEventListener('click', (e) => {
+      // If clicking enquire button directly, let it open WhatsApp and do not open modal
+      if (e.target.closest('.reel-enquire-btn')) {
+        return;
+      }
+      openModal(idx);
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (!e.target.closest('.reel-enquire-btn')) {
+          e.preventDefault();
+          openModal(idx);
+        }
+      }
+    });
+  });
+
+  // Modal Controls
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (prevBtn) prevBtn.addEventListener('click', showPrevReel);
+  if (nextBtn) nextBtn.addEventListener('click', showNextReel);
+
+  // Click outside dialog to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Keyboard navigation: Esc, Left, Right
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+
+    if (e.key === 'Escape') {
+      closeModal();
+    } else if (e.key === 'ArrowLeft') {
+      showPrevReel();
+    } else if (e.key === 'ArrowRight') {
+      showNextReel();
+    }
+  });
+}
+
 

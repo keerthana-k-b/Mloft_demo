@@ -4,3 +4,5 @@ The following images contain external photographer or vendor watermarks/signatur
 
 - assets/reference/instagram/insta5.png (Columns 0, 1, 2): Contains third-party photographer watermark ('fr' in gold floral circle at bottom-left) and floral vendor credit ('floretta' near bouquet). Cropping would truncate the bride's saree and floral styling. Requesting high-resolution clean originals from the photographer.
 - assets/raw/Screenshot 2026-10-01 150307.png: Contains photographer credit 'tjsflare' at bottom-center. Inpainted M LOFT text at waist, but requesting original unwatermarked photography file for highest print/retina display quality.
+- assets/reference/new/Screenshot 2026-10-04 173550.png: Contains faint external photographer monogram in dark foliage in top-left margin. Cleanly cropped around, but high-res master original would provide full vertical framing.
+- assets/reference/new/Screenshot 2026-10-04 173807.png: Contains external photographer credit watermark in top-right dark background above mirror. Cleanly cropped around, but full original file is recommended.
