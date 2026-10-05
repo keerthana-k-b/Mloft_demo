@@ -8,3 +8,4 @@ The following screenshot regions are obscured by Instagram's dark hover overlay 
 - assets/reference/instagram/insta2.png (Column 1): Covered by dark hover overlay with white heart (71.2K) and comment count (399).
 - assets/reference/instagram/insta3.png (Column 0): Covered by dark hover overlay with white heart (505) and comment count (3).
 - assets/reference/instagram/insta4.png (Column 1): Covered by dark hover overlay with white heart (4,932) and comment count (300).
+- assets/reference/new/Screenshot 2026-10-04 173938.png: Obscured by Instagram carousel navigation arrow button ('>') on right edge, bottom carousel pagination dots, and large M LOFT watermark across the coral saree pleats. Requesting clean original photograph.

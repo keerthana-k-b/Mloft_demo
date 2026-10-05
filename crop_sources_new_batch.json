@@ -1,0 +1,128 @@
+[
+  {
+    "target": "engagement-02",
+    "source": "assets/reference/new/Screenshot 2026-10-01 150237.png",
+    "category": "Engagement & Reception",
+    "title": "Aurelia Floral Organza Lehenga",
+    "resolution": "901x1200",
+    "cleaning": "Inpainted M. LOFT lion emblem and branding text from upper-right foliage; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "engagement-03",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173353.png",
+    "category": "Engagement & Sangeet",
+    "title": "Samira Fuchsia Zari Bridal Lehenga",
+    "resolution": "955x1200",
+    "cleaning": "Trimmed 1px border; pristine photograph with zero watermarks; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "handwork-03",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173439.png",
+    "category": "Handwork Details",
+    "title": "Atelier Zardozi Handloom Artistry",
+    "resolution": "901x1200",
+    "cleaning": "Inpainted 'M LOFT' gold text from silk canvas; removed bottom-left Instagram tag icon; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "pavithrappattu-02",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173501.png",
+    "category": "Pavithrappattu",
+    "title": "Vrinda Emerald & Maroon Heritage Silk",
+    "resolution": "814x1200",
+    "cleaning": "Inpainted bottom Instagram carousel pagination dots on solid studio backdrop; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "christian-bride-03",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173550.png",
+    "category": "Christian Bride",
+    "title": "Celeste Pearl-Work Bridal Saree",
+    "resolution": "890x1200",
+    "cleaning": "Cropped top 25px dark foliage to exclude photographer watermark; preserved full bride portrait; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "engagement-04",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173612.png",
+    "category": "Engagement & Reception",
+    "title": "Althea Emerald Velvet Embroidered Lehenga",
+    "resolution": "884x1200",
+    "cleaning": "Trimmed 1px border; pristine studio portrait; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "hindu-bride-02",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173706.png",
+    "category": "Hindu Bride",
+    "title": "Ananya Saffron Bridal Veil Editorial",
+    "resolution": "804x1200",
+    "cleaning": "Trimmed 1px boundary; clean editorial photography; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "hindu-bride-03",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173718.png",
+    "category": "Hindu Bride",
+    "title": "Mayura Tangerine Kanchipuram Silk",
+    "resolution": "747x1200",
+    "cleaning": "Trimmed 1px boundary; pristine photo content; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "hindu-bride-04",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173728.png",
+    "category": "Hindu Bride",
+    "title": "Kalyani Temple Gold Silk Ensemble",
+    "resolution": "708x1200",
+    "cleaning": "Trimmed 1px boundary; pristine ceremonial portrait; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "engagement-05",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173807.png",
+    "category": "Engagement & Reception",
+    "title": "Ivory Silk Mirror Heirloom Lehenga",
+    "resolution": "1015x1200",
+    "cleaning": "Cropped top 25px to exclude photographer text watermark; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "white-gown-02",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173828.png",
+    "category": "White Gowns & Western Bridal",
+    "title": "Giselle Beaded Cathedral Cape Gown",
+    "resolution": "864x1200",
+    "cleaning": "Inpainted bottom-left Instagram user-tag badge from cobblestones; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "christian-bride-04",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173852.png",
+    "category": "Christian Bride",
+    "title": "Evangeline Antique Gold Tissue Zari Saree",
+    "resolution": "644x1200",
+    "cleaning": "Trimmed 1px edge boundary; pristine church architectural portrait; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "white-gown-03",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173908.png",
+    "category": "White Gowns & Western Bridal",
+    "title": "Rosalind Pearl Tassel Champagne Gown",
+    "resolution": "694x1200",
+    "cleaning": "Inpainted bottom Instagram carousel pagination dots on gravel ground; resized to 1200px long side",
+    "status": "Approved"
+  },
+  {
+    "target": "roja-02",
+    "source": "assets/reference/new/Screenshot 2026-10-04 173928.png",
+    "category": "Roja & Festive Silk",
+    "title": "Charulata Chartreuse & Plum Zari Saree",
+    "resolution": "788x1200",
+    "cleaning": "Inpainted white 'M LOFT' watermark text from lower green silk pleats; resized to 1200px long side",
+    "status": "Approved"
+  }
+]
