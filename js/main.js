@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReelsCarousel();
   initReelsHoverPreview();
   initReelsModal();
+  initInstaCarousel();
 });
 
 /**
@@ -1019,5 +1020,55 @@ function initReelsModal() {
     }
   });
 }
+
+
+/**
+ * Instagram Feed Carousel (Step 6A)
+ */
+function initInstaCarousel() {
+  const track = document.getElementById('instaTrack');
+  const prevBtn = document.getElementById('instaArrowPrev');
+  const nextBtn = document.getElementById('instaArrowNext');
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const cards = Array.from(track.children);
+  let currentIndex = 0;
+
+  function getVisible() {
+    const w = window.innerWidth;
+    if (w < 768) return 1;
+    if (w < 1024) return 2;
+    return 3;
+  }
+
+  function getCardWidth() {
+    if (!cards.length) return 0;
+    return cards[0].getBoundingClientRect().width + 16; // gap: 16px
+  }
+
+  function slide() {
+    const maxIndex = Math.max(0, cards.length - getVisible());
+    currentIndex = Math.min(Math.max(currentIndex, 0), maxIndex);
+    track.style.transform = `translateX(-${currentIndex * getCardWidth()}px)`;
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+  }
+
+  prevBtn.addEventListener('click', () => { currentIndex--; slide(); });
+  nextBtn.addEventListener('click', () => { currentIndex++; slide(); });
+  window.addEventListener('resize', slide);
+  slide();
+
+  // Touch/swipe support
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) { currentIndex++; slide(); } else { currentIndex--; slide(); }
+    }
+  }, { passive: true });
+}
+
 
 

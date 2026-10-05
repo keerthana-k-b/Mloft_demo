@@ -3999,6 +3999,347 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* ==========================================================================
+   Step 6A · Instagram Feed Carousel
+   ========================================================================== */
+
+.insta-section {
+  padding: 80px 0 60px;
+  background: var(--bg-ivory);
+  overflow: hidden;
+}
+
+.insta-carousel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 44px;
+}
+
+.insta-track-outer {
+  flex: 1;
+  overflow: hidden;
+}
+
+.insta-track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.insta-card {
+  flex: 0 0 calc((100% - 32px) / 3);
+  min-width: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  position: relative;
+}
+
+.insta-img-wrap {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.insta-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.insta-card:hover .insta-img-wrap img {
+  transform: scale(1.04);
+}
+
+.insta-hover-glyph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 59, 58, 0.45);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 14px;
+}
+
+.insta-hover-glyph svg {
+  width: 52px;
+  height: 52px;
+  fill: #fff;
+}
+
+.insta-card:hover .insta-hover-glyph,
+.insta-card:focus-visible .insta-hover-glyph {
+  opacity: 1;
+}
+
+/* Arrow buttons */
+.insta-arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-gold);
+  background: var(--bg-white);
+  color: var(--primary-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+  z-index: 2;
+}
+
+.insta-arrow svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.insta-arrow:hover {
+  background: var(--primary-teal);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(15, 59, 58, 0.18);
+}
+
+.insta-arrow-prev { margin-right: 12px; }
+.insta-arrow-next { margin-left: 12px; }
+
+/* Follow pill */
+.insta-cta-wrap {
+  margin-top: 36px;
+  text-align: center;
+}
+
+.btn-insta-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-gold);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-insta-follow:hover {
+  background: var(--gold-dark);
+  box-shadow: 0 6px 22px rgba(201, 162, 75, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Mobile: 1.5 visible */
+@media (max-width: 767px) {
+  .insta-card {
+    flex: 0 0 80%;
+  }
+}
+
+/* Tablet: 2 visible */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .insta-card {
+    flex: 0 0 calc((100% - 16px) / 2);
+  }
+}
+
+/* ==========================================================================
+   Step 6B · Trust Strip
+   ========================================================================== */
+
+.trust-strip {
+  background: var(--bg-ivory);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 52px 0;
+}
+
+.trust-strip-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 0;
+  align-items: center;
+  text-align: center;
+}
+
+.trust-divider {
+  width: 1px;
+  height: 64px;
+  background: var(--border-gold);
+  border-radius: 1px;
+  margin: 0 32px;
+}
+
+.trust-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+}
+
+.trust-icon {
+  width: 52px;
+  height: 52px;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.trust-pillar-title {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary-teal);
+}
+
+.trust-pillar-text {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 220px;
+}
+
+@media (max-width: 767px) {
+  .trust-strip-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .trust-divider {
+    width: 48px;
+    height: 1px;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+   Step 6C · Bride Testimonials
+   ========================================================================== */
+
+.testimonials-section {
+  padding: 80px 0 88px;
+  background: var(--bg-cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-section::before {
+  content: '\201C';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-size: 18rem;
+  line-height: 1;
+  color: rgba(201, 162, 75, 0.07);
+  pointer-events: none;
+  user-select: none;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 52px;
+}
+
+.testimonial-card {
+  background: var(--bg-white);
+  border-radius: 16px;
+  padding: 36px 30px 30px;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  transition-delay: var(--delay, 0ms);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.testimonial-stars svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent-gold);
+}
+
+.testimonial-quote {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-body);
+  font-style: italic;
+  flex: 1;
+}
+
+.testimonial-bride {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 16px;
+}
+
+.testimonial-bride-name {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--primary-teal);
+}
+
+.testimonial-bride-detail {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 767px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
